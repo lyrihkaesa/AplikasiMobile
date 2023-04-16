@@ -12,6 +12,8 @@ public class Khs implements Parcelable {
     private String letterGrade;
     private String predicate;
 
+    public Khs() {}
+
     public String getCodeMatkul() {
         return codeMatkul;
     }
@@ -75,10 +77,6 @@ public class Khs implements Parcelable {
         dest.writeString(this.predicate);
 
     }
-
-    public Khs() {
-    }
-
     private Khs(Parcel in) {
         this.codeMatkul = in.readString();
         this.nameMatkul = in.readString();

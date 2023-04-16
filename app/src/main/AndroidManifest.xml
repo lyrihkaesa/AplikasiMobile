@@ -12,10 +12,16 @@
         android:theme="@style/Theme.AplikasiMobile"
         tools:targetApi="31">
         <activity
-            android:name=".DetailKhs"
+            android:name=".activity.Register"
             android:exported="false" />
         <activity
-            android:name=".EntryKhs"
+            android:name=".activity.Login"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DetailKhs"
+            android:exported="false" />
+        <activity
+            android:name=".activity.EntryKhs"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

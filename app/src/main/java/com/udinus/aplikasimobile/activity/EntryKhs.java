@@ -1,16 +1,16 @@
-package com.udinus.aplikasimobile;
+package com.udinus.aplikasimobile.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.udinus.aplikasimobile.R;
+import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.databinding.ActivityEntryKhsBinding;
-import com.udinus.aplikasimobile.database.DatabaseHelper;
 
 import java.util.Objects;
 
@@ -34,11 +34,7 @@ public class EntryKhs extends AppCompatActivity {
 
         binding.btnSave.setOnClickListener(v -> addKhs());
 
-        binding.btnCancel.setOnClickListener(v -> {
-            // Ganti dari halaman EntryKhs ke MainActivity
-            Intent intent = new Intent(EntryKhs.this, MainActivity.class);
-            startActivity(intent);
-        });
+        binding.btnCancel.setOnClickListener(v -> finish());
 
     }
 
@@ -59,9 +55,7 @@ public class EntryKhs extends AppCompatActivity {
             Toast.makeText(this, "Berhasil menambahkan mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
         }
 
-        // Ganti dari halaman EntryKhs ke MainActivity
-        Intent intent = new Intent(EntryKhs.this, MainActivity.class);
-        startActivity(intent);
+       finish();
     }
 
 }

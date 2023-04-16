@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile;
+package com.udinus.aplikasimobile.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
