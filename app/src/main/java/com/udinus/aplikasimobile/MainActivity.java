@@ -1,13 +1,16 @@
 package com.udinus.aplikasimobile;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.udinus.aplikasimobile.database.dao.KhsDao;
+import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.databinding.ActivityMainBinding;
+import com.udinus.aplikasimobile.database.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -16,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     DatabaseHelper databaseHelper;
-    private final ArrayList<ModelKhs> list = new ArrayList<>();
+    private final ArrayList<Khs> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +32,18 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle("Kartu Hasil Studi");
 
         databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        KhsDao khsDao = new KhsDao(database);
 
         binding.rvKhs.setHasFixedSize(true);
         list.clear();
-        list.addAll(databaseHelper.getAllKhs());
+        list.addAll(khsDao.getAll());
         showRecyclerList();
 
-//        binding.fab.setOnClickListener(view -> {
-//            Intent intent = new Intent(MainActivity.this, EntryKhs.class);
-//            startActivity(intent);
-//        });
+        binding.fab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, EntryKhs.class);
+            startActivity(intent);
+        });
     }
 
     private void showRecyclerList() {

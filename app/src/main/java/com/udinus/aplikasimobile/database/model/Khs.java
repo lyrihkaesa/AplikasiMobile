@@ -1,9 +1,9 @@
-package com.udinus.aplikasimobile;
+package com.udinus.aplikasimobile.database.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ModelKhs implements Parcelable {
+public class Khs implements Parcelable {
 
     private String codeMatkul;
     private String nameMatkul;
@@ -76,10 +76,10 @@ public class ModelKhs implements Parcelable {
 
     }
 
-    public ModelKhs() {
+    public Khs() {
     }
 
-    private ModelKhs(Parcel in) {
+    private Khs(Parcel in) {
         this.codeMatkul = in.readString();
         this.nameMatkul = in.readString();
         this.sks = in.readInt();
@@ -88,15 +88,15 @@ public class ModelKhs implements Parcelable {
         this.predicate = in.readString();
     }
 
-    public static final Parcelable.Creator<ModelKhs> CREATOR = new Parcelable.Creator<ModelKhs>() {
+    public static final Parcelable.Creator<Khs> CREATOR = new Parcelable.Creator<Khs>() {
         @Override
-        public ModelKhs createFromParcel(Parcel source) {
-            return new ModelKhs(source);
+        public Khs createFromParcel(Parcel source) {
+            return new Khs(source);
         }
 
         @Override
-        public ModelKhs[] newArray(int size) {
-            return new ModelKhs[size];
+        public Khs[] newArray(int size) {
+            return new Khs[size];
         }
     };
 }

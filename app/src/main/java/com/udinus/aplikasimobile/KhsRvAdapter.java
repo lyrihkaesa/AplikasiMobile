@@ -6,15 +6,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.databinding.ItemRowKhsBinding;
 
 import java.util.ArrayList;
 
 public class KhsRvAdapter extends RecyclerView.Adapter<KhsRvAdapter.KhsRvHolder> {
-    private final ArrayList<ModelKhs> khsArrayList;
+    private final ArrayList<Khs> khsArrayList;
     private OnItemClickCallback onItemClickCallback;
 
-    public KhsRvAdapter(ArrayList<ModelKhs> medicineArrayList) {
+    public KhsRvAdapter(ArrayList<Khs> medicineArrayList) {
         this.khsArrayList = medicineArrayList;
     }
 
@@ -32,7 +33,7 @@ public class KhsRvAdapter extends RecyclerView.Adapter<KhsRvAdapter.KhsRvHolder>
 
     @Override
     public void onBindViewHolder(@NonNull KhsRvHolder holder, int position) {
-        ModelKhs khs = khsArrayList.get(position);
+        Khs khs = khsArrayList.get(position);
         holder.binding.tvNo.setText(String.valueOf(position + 1));
         holder.binding.tvCode.setText(khs.getCodeMatkul());
         holder.binding.tvName.setText(khs.getNameMatkul());
@@ -60,6 +61,6 @@ public class KhsRvAdapter extends RecyclerView.Adapter<KhsRvAdapter.KhsRvHolder>
     }
 
     public interface OnItemClickCallback {
-        void onItemClicked(ModelKhs data);
+        void onItemClicked(Khs data);
     }
 }
