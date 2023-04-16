@@ -1,8 +1,10 @@
 package com.udinus.aplikasimobile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,10 +42,7 @@ public class MainActivity extends AppCompatActivity {
         list.addAll(khsDao.getAll());
         showRecyclerList();
 
-        binding.fab.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, EntryKhs.class);
-            startActivity(intent);
-        });
+        binding.addKhs.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EntryKhs.class)));
     }
 
     private void showRecyclerList() {

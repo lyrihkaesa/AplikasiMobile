@@ -10,6 +10,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:padding="5dp"
+            android:text="Entry Data KHS"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -83,6 +99,8 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border_blue"
+        android:layout_marginTop="10dp"
         android:paddingTop="10dp">
 
         <TableRow android:orientation="vertical">
@@ -166,8 +184,8 @@
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginRight="10dp"
-            android:padding="4dp"
             android:text="save"
             android:textSize="16sp" />
 
@@ -175,8 +193,10 @@
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/yellow"
+
             android:layout_marginLeft="10dp"
-            android:padding="4dp"
             android:text="cancel"
             android:textSize="16sp" />
     </LinearLayout>

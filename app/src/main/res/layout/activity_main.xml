@@ -9,8 +9,9 @@
 
     <TextView
         android:id="@+id/title_khs"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_border_blue"
         android:gravity="center_horizontal"
         android:text="@string/title_khs"
         android:textSize="24sp"
@@ -95,66 +96,155 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TableHeaderRow"
             tools:ignore="UselessParent">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="1dp"
+                android:paddingHorizontal="2dp"
+                android:textColor="@color/white"
                 android:text="@string/text_no" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="1dp"
+                android:paddingHorizontal="15dp"
+                android:textColor="@color/white"
                 android:text="@string/text_code" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="1dp"
+                android:paddingHorizontal="26dp"
+                android:textColor="@color/white"
                 android:text="@string/text_name" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="1dp"
+                android:paddingHorizontal="2dp"
+                android:textColor="@color/white"
                 android:text="@string/text_number_grade" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="1dp"
+                android:paddingHorizontal="2dp"
+                android:textColor="@color/white"
                 android:text="@string/text_letter_grade" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="1dp"
+                android:paddingHorizontal="2dp"
+                android:textColor="@color/white"
                 android:text="@string/text_sks" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="1dp"
+                android:paddingHorizontal="2dp"
+                android:textColor="@color/white"
                 android:text="@string/text_predicate" />
         </TableRow>
     </TableLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/table_header_rv_khs"
         android:id="@+id/rv_khs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/table_header_rv_khs"
         android:layout_marginTop="2dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/entry_khs"
-        android:src="@drawable/round_add_24" />
+        android:background="@drawable/rounded_border_blue"
+        android:orientation="horizontal">
+
+        <TableLayout
+            android:layout_marginLeft="10dp"
+            android:id="@+id/table_ipk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ipk" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titik_dua" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_nim" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total SKS" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titik_dua" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_nim" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah Mata Kuliah" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titik_dua" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_nim" />
+            </TableRow>
+        </TableLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_khs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/button_primary"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/blue"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
 </RelativeLayout>
