@@ -1,9 +1,10 @@
-package com.udinus.aplikasimobile;
+package com.udinus.aplikasimobile.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.databinding.ActivityDetailKhsBinding;
 
 import java.util.Objects;

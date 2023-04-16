@@ -1,14 +1,15 @@
 package com.udinus.aplikasimobile;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.udinus.aplikasimobile.activity.DetailKhs;
+import com.udinus.aplikasimobile.activity.EntryKhs;
+import com.udinus.aplikasimobile.adapter.KhsRvAdapter;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.databinding.ActivityMainBinding;
