@@ -1,11 +1,13 @@
 package com.udinus.aplikasimobile.activity;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.udinus.aplikasimobile.MainActivity;
 import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
@@ -46,7 +48,7 @@ public class EntryKhs extends AppCompatActivity {
         khs.setCodeMatkul(binding.edtCodeMatkul.getText().toString());
         khs.setNameMatkul(binding.edtNameMatkul.getText().toString());
         khs.setGrade(Double.valueOf(binding.edtGrade.getText().toString()));
-        khs.setLetterGrade(binding.edtGrade.getText().toString());
+        khs.setLetterGrade(binding.edtLetterGrade.getText().toString());
         khs.setSks(Integer.valueOf(binding.edtSks.getText().toString()));
         khs.setPredicate(binding.edtPredicate.getText().toString());
 
@@ -55,7 +57,7 @@ public class EntryKhs extends AppCompatActivity {
             Toast.makeText(this, "Berhasil menambahkan mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
         }
 
-       finish();
+       startActivity(new Intent(EntryKhs.this, MainActivity.class));
     }
 
 }

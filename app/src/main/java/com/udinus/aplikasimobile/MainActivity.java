@@ -64,14 +64,4 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentDetail);
         });
     }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        khsDao = new KhsDao(database);
-        list.clear();
-        list.addAll(khsDao.getAll());
-    }
 }
