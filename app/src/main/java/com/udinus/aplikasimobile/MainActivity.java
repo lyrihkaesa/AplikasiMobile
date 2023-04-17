@@ -1,10 +1,8 @@
 package com.udinus.aplikasimobile;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.udinus.aplikasimobile.activity.DetailKhs;
 import com.udinus.aplikasimobile.activity.EntryKhs;
 import com.udinus.aplikasimobile.adapter.KhsRvAdapter;
+import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.databinding.ActivityMainBinding;
-import com.udinus.aplikasimobile.database.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -25,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     DatabaseHelper databaseHelper;
     private final ArrayList<Khs> list = new ArrayList<>();
+    KhsDao khsDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        KhsDao khsDao = new KhsDao(database);
+        khsDao = new KhsDao(database);
 
         binding.rvKhs.setHasFixedSize(true);
         list.clear();
@@ -66,4 +65,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        khsDao = new KhsDao(database);
+        list.clear();
+        list.addAll(khsDao.getAll());
+    }
 }

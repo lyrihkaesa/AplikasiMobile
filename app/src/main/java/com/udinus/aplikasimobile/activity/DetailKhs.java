@@ -1,17 +1,16 @@
 package com.udinus.aplikasimobile.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.databinding.ActivityDetailKhsBinding;
-import com.udinus.aplikasimobile.databinding.ActivityEntryKhsBinding;
 
 import java.util.Objects;
 
@@ -36,19 +35,23 @@ public class DetailKhs extends AppCompatActivity {
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
+        Khs khs = getIntent().getParcelableExtra("key_khs");
 
+        binding.edtCodeMatkul.setText(khs.getCodeMatkul());
+        binding.edtNameMatkul.setText(khs.getNameMatkul());
+        binding.edtSks.setText(String.valueOf(khs.getSks()));
+        binding.edtGrade.setText(String.valueOf(khs.getGrade()));
+        binding.edtLetterGrade.setText(khs.getLetterGrade());
+        binding.edtPredicate.setText(khs.getPredicate());
+
+        binding.edtCodeMatkul.setEnabled(false);
+        binding.edtCodeMatkul.setTextColor(getColor(R.color.red_500));
 
         binding.updateButton.setOnClickListener(v ->editKhs());
 
         binding.cancelButton.setOnClickListener(v -> finish());
 
-        binding.deleteButton.setOnClickListener(v -> {
-            khsDao.delete(binding.edtCodeMatkul.getText().toString());
-        });
-
-
-
-
+        binding.deleteButton.setOnClickListener(v -> khsDao.delete(binding.edtCodeMatkul.getText().toString()));
     }
 
     private void editKhs() {

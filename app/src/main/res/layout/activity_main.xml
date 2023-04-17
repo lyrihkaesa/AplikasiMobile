@@ -153,12 +153,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_khs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer"
         android:layout_below="@+id/table_header_rv_khs"
         android:layout_marginTop="2dp" />
 
 
     <RelativeLayout
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
