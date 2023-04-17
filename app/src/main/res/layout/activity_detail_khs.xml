@@ -20,111 +20,79 @@
         android:textStyle="bold" />
 
     <TableLayout
-        android:id="@+id/table_detail_matkul"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="10dp">
+        android:background="@drawable/rounded_border_blue"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kode Matkul" />
+        <TableRow android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/titik_dua" />
+                android:text="@string/label_code_matkul"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/detail_kode_matkul"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/edt_code_matkul"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/text_nim" />
+                android:hint="Isi kode maktul!" />
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
+                android:text="Matakuliah"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/edt_name_matkul"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SKS" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/titik_dua" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_nim" />
+                android:hint="Isi nama maktul!"/>
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
+                android:text="SKS"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/edt_sks"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nilai Angka" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/titik_dua" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_nim" />
+                android:hint="Isi sks maktul!"/>
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
+                android:text="N. Angka"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/edt_grade"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nilai Huruf" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/titik_dua" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_nim" />
+                android:hint="Isi nilai angka maktul!"/>
         </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
+                android:text="N. Huruf"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/edt_letter_grade"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Predikat" />
-
+                android:hint="Isi nilai huruf maktul!"/>
+        </TableRow>
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
+                android:text="Predikat"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/edt_predicate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/titik_dua" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/text_nim" />
+                android:hint="Isi predikat maktul!"/>
         </TableRow>
     </TableLayout>
 
