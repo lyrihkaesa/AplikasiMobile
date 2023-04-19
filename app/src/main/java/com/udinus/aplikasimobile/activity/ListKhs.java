@@ -11,10 +11,10 @@ import com.udinus.aplikasimobile.adapter.KhsRvAdapter;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
+import com.udinus.aplikasimobile.database.model.User;
 import com.udinus.aplikasimobile.databinding.ActivityListKhsBinding;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ListKhs extends AppCompatActivity {
     ActivityListKhsBinding binding;
@@ -35,6 +35,12 @@ public class ListKhs extends AppCompatActivity {
         database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
+        User user = getIntent().getParcelableExtra("key_user");
+
+        binding.tvNim.setText(user.getNim());
+        binding.tvFullName.setText(user.getMahasiswa().getName());
+        binding.tvMajor.setText(String.format("%s - %s", user.getMahasiswa().getMajor(), user.getMahasiswa().getDegree()));
+
         binding.rvKhs.setHasFixedSize(true);
         // Mengatur layout linear pada RecyclerView
         binding.rvKhs.setLayoutManager(new LinearLayoutManager(this));
@@ -52,10 +58,15 @@ public class ListKhs extends AppCompatActivity {
         khsRvAdapter.setOnItemClickCallback(khs -> {
             Intent intentDetail = new Intent(ListKhs.this, DetailKhs.class);
             intentDetail.putExtra("key_khs", khs);
+            intentDetail.putExtra("key_user", user);
             startActivity(intentDetail);
         });
 
-        binding.addKhs.setOnClickListener(v -> startActivity(new Intent(ListKhs.this, EntryKhs.class)));
+        binding.btnEntryKhs.setOnClickListener(v -> {
+            Intent intent = new Intent(ListKhs.this, EntryKhs.class);
+            intent.putExtra("key_user", user);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -77,13 +88,17 @@ public class ListKhs extends AppCompatActivity {
     private void countFooter(){
         Double totalGrades = 0.0;
         Integer totalSks = 0;
-        for (Khs khs : list) {
-            totalGrades += khs.getGrade();
-            totalSks += khs.getSks();
+        Double ipk;
+        if(list != null && list.size() > 0) {
+            for (Khs khs : list) {
+                totalGrades += khs.getGrade();
+                totalSks += khs.getSks();
+            }
+            ipk = totalGrades / list.size();
+            binding.tvIpk.setText(String.valueOf(ipk));
+            binding.tvTotalSks.setText(String.valueOf(totalSks));
+            binding.tvTotalMatkul.setText(String.valueOf(list.size()));
         }
-        Double ipk = totalGrades/list.size();
-        binding.tvIpk.setText(String.valueOf(ipk));
-        binding.tvTotalSks.setText(String.valueOf(totalSks));
-        binding.tvTotalMatkul.setText(String.valueOf(list.size()));
+
     }
 }

@@ -21,4 +21,13 @@
     <string name="label_total_matkul">Jumlah Mata Kuliah</string>
     <string name="label_total_sks">Total SKS</string>
     <string name="number_zero">0</string>
+    <string name="title_register">Register</string>
+    <string name="text_username">Username</string>
+    <string name="text_password">Password</string>
+    <string name="text_confirm_password">Confirm Password</string>
+    <string name="label_degree">Sarjana</string>
+    <string name="label_email">Email</string>
+    <string name="default_major">Sistem Informasi</string>
+    <string name="default_degree">S1</string>
+    <string name="default_nim">A12.2020.</string>
 </resources>

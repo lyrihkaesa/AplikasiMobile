@@ -24,7 +24,7 @@
         android:text="Username" />
 
     <EditText
-        android:id="@+id/log_username"
+        android:id="@+id/log_nim_or_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

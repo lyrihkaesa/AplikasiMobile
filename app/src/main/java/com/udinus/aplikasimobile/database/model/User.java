@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 public class User implements Parcelable {
 
     private String username;
-    private String email;
+    private String nim;
     private String password;
     private Mahasiswa mahasiswa;
 
@@ -23,12 +23,12 @@ public class User implements Parcelable {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public String getNim() {
+        return nim;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setNim(String nim) {
+        this.nim = nim;
     }
 
     public String getPassword() {
@@ -55,14 +55,14 @@ public class User implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(this.username);
-        dest.writeString(this.email);
+        dest.writeString(this.nim);
         dest.writeString(this.password);
         dest.writeParcelable(this.mahasiswa, flags);
     }
 
     protected User(Parcel in) {
         this.username = in.readString();
-        this.email = in.readString();
+        this.nim = in.readString();
         this.password = in.readString();
         this.mahasiswa = in.readParcelable(Mahasiswa.class.getClassLoader());
     }

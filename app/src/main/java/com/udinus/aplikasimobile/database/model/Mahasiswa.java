@@ -10,9 +10,11 @@ public class Mahasiswa implements Parcelable {
     private String nim;
     private String name;
     private String email;
-    private String prodi;
+    private String major;
+    private String degree;
 
-    public Mahasiswa() {}
+    public Mahasiswa() {
+    }
 
     public String getNim() {
         return nim;
@@ -38,12 +40,20 @@ public class Mahasiswa implements Parcelable {
         this.email = email;
     }
 
-    public String getProdi() {
-        return prodi;
+    public String getMajor() {
+        return major;
     }
 
-    public void setProdi(String prodi) {
-        this.prodi = prodi;
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
     @Override
@@ -56,15 +66,16 @@ public class Mahasiswa implements Parcelable {
         dest.writeString(this.nim);
         dest.writeString(this.name);
         dest.writeString(this.email);
-        dest.writeString(this.prodi);
+        dest.writeString(this.major);
+        dest.writeString(this.degree);
     }
 
     protected Mahasiswa(Parcel in) {
         this.nim = in.readString();
         this.name = in.readString();
         this.email = in.readString();
-        this.prodi = in.readString();
-
+        this.major = in.readString();
+        this.degree = in.readString();
     }
 
     public static final Creator<Mahasiswa> CREATOR = new Creator<Mahasiswa>() {
