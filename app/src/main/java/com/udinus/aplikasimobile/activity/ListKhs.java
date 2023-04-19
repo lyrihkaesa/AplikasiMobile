@@ -89,17 +89,18 @@ public class ListKhs extends AppCompatActivity {
     private void countFooter() {
         Double totalGrades = 0.0;
         Integer totalSks = 0;
-        Double ipk;
+        Double ipk = 0.0;
+        Integer totalMatkul = 0;
         if (list != null && list.size() > 0) {
             for (Khs khs : list) {
                 totalGrades += khs.getGrade();
                 totalSks += khs.getSks();
             }
             ipk = totalGrades / list.size();
-            binding.tvIpk.setText(String.valueOf(ipk));
-            binding.tvTotalSks.setText(String.valueOf(totalSks));
-            binding.tvTotalMatkul.setText(String.valueOf(list.size()));
+            totalMatkul = list.size();
         }
-
+        binding.tvIpk.setText(String.valueOf(ipk));
+        binding.tvTotalSks.setText(String.valueOf(totalSks));
+        binding.tvTotalMatkul.setText(String.valueOf(totalMatkul));
     }
 }
