@@ -19,6 +19,7 @@ import com.udinus.aplikasimobile.databinding.ActivityRegisterBinding;
 public class Register extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     DatabaseHelper databaseHelper;
+    SQLiteDatabase database;
     private UserDao userDao;
     private MahasiswaDao mahasiswaDao;
 
@@ -29,7 +30,7 @@ public class Register extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        database = databaseHelper.getWritableDatabase();
         userDao = new UserDao(database);
         mahasiswaDao = new MahasiswaDao(database);
 
@@ -105,5 +106,12 @@ public class Register extends AppCompatActivity {
             }
         });
         binding.btnChangeLogin.setOnClickListener(v -> startActivity(new Intent(Register.this, Login.class)));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseHelper.close();
+        database.close();
     }
 }

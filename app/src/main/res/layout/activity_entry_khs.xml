@@ -9,13 +9,13 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_border_blue"
-        android:gravity="center_horizontal"
+        android:background="@drawable/rounded_fill_blue"
+        android:gravity="center_vertical"
         android:paddingHorizontal="10dp"
         android:text="@string/title_entry_data_khs"
-        android:textColor="@color/blue"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -129,7 +129,7 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:labelFor="@id/edt_name_matkul"
-                android:text="@string/label_matakuliah"
+                android:text="@string/label_name_matkul"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

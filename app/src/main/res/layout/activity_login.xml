@@ -16,12 +16,12 @@
         android:textSize="40sp" />
 
     <TextView
-        android:id="@+id/label_username"
+        android:id="@+id/label_nim_or_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:labelFor="@id/log_nim_or_username"
-        android:text="@string/label_username" />
+        android:text="@string/label_nim_or_username" />
 
     <EditText
         android:id="@+id/log_nim_or_username"

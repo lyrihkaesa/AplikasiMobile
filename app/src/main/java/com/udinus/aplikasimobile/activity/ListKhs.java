@@ -74,6 +74,7 @@ public class ListKhs extends AppCompatActivity {
         super.onStart();
         list.clear();
         list.addAll(khsDao.getAll());
+        khsRvAdapter.notifyItemRemoved(0);
         khsRvAdapter.notifyItemRangeChanged(0, list.size());
         countFooter();
     }

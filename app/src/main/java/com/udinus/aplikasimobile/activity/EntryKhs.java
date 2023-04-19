@@ -16,6 +16,7 @@ public class EntryKhs extends AppCompatActivity {
 
     private ActivityEntryKhsBinding binding;
     DatabaseHelper databaseHelper;
+    SQLiteDatabase database;
     private KhsDao khsDao;
 
     @Override
@@ -32,13 +33,20 @@ public class EntryKhs extends AppCompatActivity {
         binding.tvMajor.setText(String.format("%s - %s", user.getMahasiswa().getMajor(), user.getMahasiswa().getDegree()));
 
         databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
         binding.btnSave.setOnClickListener(v -> addKhs());
 
         binding.btnCancel.setOnClickListener(v -> finish());
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseHelper.close();
+        database.close();
     }
 
     private void addKhs() {
@@ -57,7 +65,6 @@ public class EntryKhs extends AppCompatActivity {
         if (khsDao.insert(khs) > 0) {
             Toast.makeText(this, "Berhasil menambahkan mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
         }
-
         finish();
     }
 

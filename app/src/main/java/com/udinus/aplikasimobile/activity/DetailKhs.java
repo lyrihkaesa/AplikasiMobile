@@ -17,6 +17,7 @@ public class DetailKhs extends AppCompatActivity {
 
     private ActivityDetailKhsBinding binding;
     DatabaseHelper databaseHelper;
+    SQLiteDatabase database;
     private KhsDao khsDao;
 
     @Override
@@ -36,7 +37,7 @@ public class DetailKhs extends AppCompatActivity {
 
 
         databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
         Khs khs = getIntent().getParcelableExtra("key_khs");
@@ -62,6 +63,13 @@ public class DetailKhs extends AppCompatActivity {
             }
             finish();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseHelper.close();
+        database.close();
     }
 
     private void editKhs() {

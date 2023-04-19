@@ -1,53 +1,58 @@
 <resources>
     <string name="app_name">MID06495</string>
-    <string name="title_khs">KARTU HASIL STUDI</string>
+
+    <string name="text_nim">A12.2020.06495</string>
+    <string name="text_full_name">Kukuh Setya Arumansyah</string>
+    <string name="text_major">Sistem Informasi - S1</string>
+
     <string name="label_nim">NIM</string>
     <string name="label_full_name">Nama</string>
     <string name="label_major">Jurusan</string>
     <string name="titik_dua">:</string>
-    <string name="text_nim">A12.2020.06495</string>
-    <string name="text_full_name">Kukuh Setya Arumansyah</string>
-    <string name="text_major">Sistem Informasi - S1</string>
+
+    <string name="title_khs">KARTU HASIL STUDI</string>
+    <string name="title_register">Register</string>
+    <string name="title_login">Login</string>
+    <string name="title_entry_data_khs">Entry Data KHS</string>
+
     <string name="entry_khs">Entry KHS</string>
+
     <string name="text_no">No</string>
     <string name="text_code">Kode</string>
     <string name="text_name">Nama Matkul</string>
+    <string name="text_sks">SKS</string>
     <string name="text_number_grade">N.Angka</string>
     <string name="text_letter_grade">N.Huruf</string>
-    <string name="text_sks">SKS</string>
     <string name="text_predicate">Predikat</string>
-    <string name="label_code_matkul">Kode</string>
+
     <string name="label_ipk">IPK</string>
     <string name="label_total_matkul">Jumlah Mata Kuliah</string>
     <string name="label_total_sks">Total SKS</string>
     <string name="number_zero">0</string>
-    <string name="title_register">Register</string>
-    <string name="text_username">Username</string>
-    <string name="text_password">Password</string>
-    <string name="text_confirm_password">Confirm Password</string>
-    <string name="label_degree">Sarjana</string>
-    <string name="label_email">Email</string>
+
     <string name="default_major">Sistem Informasi</string>
     <string name="default_degree">S1</string>
     <string name="default_nim">A12.2020.</string>
-    <string name="title_login">Login</string>
-    <string name="label_username">Username</string>
-    <string name="label_password">Password</string>
+
     <string name="dont_have_account">Belum punya akun ?</string>
     <string name="have_account">Sudah punya akun ?</string>
-    <string name="cancel">Cancel</string>
-    <string name="label_matakuliah">Matakuliah</string>
-    <string name="hint_code_matkul">Isi kode maktul!</string>
-    <string name="hint_name_matkul">Isi nama maktul!</string>
-    <string name="title_entry_data_khs">Entry Data KHS</string>
-    <string name="label_predicate">Predikat</string>
-    <string name="hint_predicate">Isi predikat maktul!</string>
-    <string name="save">Simpan</string>
-    <string name="hint_letter_grade">Isi nilai huruf maktul!</string>
-    <string name="label_letter_grade">N. Huruf</string>
-    <string name="hint_grade">Isi nilai angka maktul!</string>
-    <string name="label_grade">N. Angka</string>
-    <string name="hint_sks">Isi sks maktul!</string>
+
+    <string name="label_nim_or_username">NIM or Username</string>
+
+    <string name="label_degree">Sarjana</string>
+    <string name="label_email">Email</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+    <string name="label_confirm_password">Confirm Password</string>
+
+    <string name="label_code_matkul">Kode</string>
+    <string name="label_name_matkul">Matakuliah</string>
     <string name="label_sks">SKS</string>
+    <string name="label_letter_grade">N. Huruf</string>
+    <string name="label_grade">N. Angka</string>
+    <string name="label_predicate">Predikat</string>
+
+    <string name="save">Simpan</string>
+    <string name="cancel">Batal</string>
     <string name="delete">Hapus</string>
 </resources>

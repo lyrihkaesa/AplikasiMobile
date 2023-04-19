@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:labelFor="@id/reg_username"
-            android:text="@string/text_username" />
+            android:text="@string/label_username" />
 
         <EditText
             android:id="@+id/reg_username"
@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:labelFor="@id/reg_password"
-            android:text="@string/text_password" />
+            android:text="@string/label_password" />
 
         <EditText
             android:id="@+id/reg_password"
@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:labelFor="@id/reg_confirm_password"
-            android:text="@string/text_confirm_password" />
+            android:text="@string/label_confirm_password" />
 
         <EditText
             android:id="@+id/reg_confirm_password"
