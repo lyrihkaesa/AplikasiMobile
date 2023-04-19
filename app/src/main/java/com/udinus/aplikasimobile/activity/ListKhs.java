@@ -85,11 +85,11 @@ public class ListKhs extends AppCompatActivity {
         database.close();
     }
 
-    private void countFooter(){
+    private void countFooter() {
         Double totalGrades = 0.0;
         Integer totalSks = 0;
         Double ipk;
-        if(list != null && list.size() > 0) {
+        if (list != null && list.size() > 0) {
             for (Khs khs : list) {
                 totalGrades += khs.getGrade();
                 totalSks += khs.getSks();

@@ -2,7 +2,6 @@ package com.udinus.aplikasimobile.activity;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,9 +10,8 @@ import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
+import com.udinus.aplikasimobile.database.model.User;
 import com.udinus.aplikasimobile.databinding.ActivityDetailKhsBinding;
-
-import java.util.Objects;
 
 public class DetailKhs extends AppCompatActivity {
 
@@ -30,11 +28,19 @@ public class DetailKhs extends AppCompatActivity {
         binding = ActivityDetailKhsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        User user = getIntent().getParcelableExtra("key_user");
+
+        binding.tvNim.setText(user.getNim());
+        binding.tvFullName.setText(user.getMahasiswa().getName());
+        binding.tvMajor.setText(String.format("%s - %s", user.getMahasiswa().getMajor(), user.getMahasiswa().getDegree()));
+
+
         databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
         Khs khs = getIntent().getParcelableExtra("key_khs");
+
 
         binding.edtCodeMatkul.setText(khs.getCodeMatkul());
         binding.edtNameMatkul.setText(khs.getNameMatkul());
@@ -46,14 +52,11 @@ public class DetailKhs extends AppCompatActivity {
         binding.edtCodeMatkul.setEnabled(false);
         binding.edtCodeMatkul.setTextColor(getColor(R.color.red_500));
 
-        binding.updateButton.setOnClickListener(v -> {
+        binding.btnSave.setOnClickListener(v -> editKhs());
 
-            editKhs();
-        });
+        binding.btnCancel.setOnClickListener(v -> finish());
 
-        binding.cancelButton.setOnClickListener(v -> finish());
-
-        binding.deleteButton.setOnClickListener(v -> {
+        binding.btnDelete.setOnClickListener(v -> {
             if (khsDao.delete(binding.edtCodeMatkul.getText().toString()) > 0) {
                 Toast.makeText(this, "Berhasil menghapus mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
             }
@@ -68,8 +71,8 @@ public class DetailKhs extends AppCompatActivity {
         // Set/Input/Masukan nilai ke object khs
         khs.setCodeMatkul(binding.edtCodeMatkul.getText().toString());
         khs.setNameMatkul(binding.edtNameMatkul.getText().toString());
-         khs.setSks(Integer.valueOf(binding.edtSks.getText().toString()));
-         khs.setGrade(Double.valueOf(binding.edtGrade.getText().toString()));
+        khs.setSks(Integer.valueOf(binding.edtSks.getText().toString()));
+        khs.setGrade(Double.valueOf(binding.edtGrade.getText().toString()));
         khs.setLetterGrade(binding.edtLetterGrade.getText().toString());
         khs.setPredicate(binding.edtPredicate.getText().toString());
 

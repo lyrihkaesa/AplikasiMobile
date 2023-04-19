@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".activity.Register">
 
     <LinearLayout
@@ -23,16 +23,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:labelFor="@id/reg_username"
             android:text="@string/text_username" />
 
         <EditText
             android:id="@+id/reg_username"
-            android:labelFor="@id/tv_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="username"
             android:inputType="text"
             android:maxLines="1"
+            android:minHeight="48dp"
             android:singleLine="true" />
 
         <TextView
@@ -40,49 +41,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:labelFor="@id/reg_nim"
             android:text="@string/label_nim" />
 
         <EditText
             android:id="@+id/reg_nim"
-            android:labelFor="@id/tv_nim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:importantForAutofill="no"
             android:inputType="textCapCharacters"
             android:maxLines="1"
-            android:singleLine="true"
-            android:importantForAutofill="no" />
+            android:minHeight="48dp"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:labelFor="@id/reg_name"
             android:text="@string/label_full_name" />
 
         <EditText
             android:id="@+id/reg_name"
-            android:labelFor="@id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="name"
             android:inputType="textPersonName"
             android:maxLines="1"
-            android:singleLine="true"
-            android:autofillHints="name" />
+            android:minHeight="48dp"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tv_major"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:labelFor="@id/reg_major"
             android:text="@string/label_major" />
 
         <EditText
             android:id="@+id/reg_major"
-            android:labelFor="@id/tv_major"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:maxLines="1"
+            android:minHeight="48dp"
             android:singleLine="true" />
 
         <TextView
@@ -90,39 +95,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:labelFor="@id/reg_degree"
             android:text="@string/label_degree" />
 
         <EditText
             android:id="@+id/reg_degree"
-            android:labelFor="@id/tv_degree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:maxLines="1"
-            android:singleLine="true"
-            android:importantForAutofill="no" />
+            android:minHeight="48dp"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:labelFor="@id/reg_email"
             android:text="@string/label_email" />
 
         <EditText
             android:id="@+id/reg_email"
-            android:labelFor="@id/tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:singleLine="true"
-            android:autofillHints="emailAddress" />
+            android:minHeight="48dp"
+            android:singleLine="true" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:labelFor="@id/reg_password"
             android:text="@string/text_password" />
 
         <EditText
@@ -132,12 +140,14 @@
             android:autofillHints="password"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:minHeight="48dp"
             android:singleLine="true" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:labelFor="@id/reg_confirm_password"
             android:text="@string/text_confirm_password" />
 
         <EditText
@@ -147,6 +157,7 @@
             android:autofillHints="password"
             android:inputType="textPassword"
             android:maxLines="1"
+            android:minHeight="48dp"
             android:singleLine="true" />
 
         <Button
@@ -154,7 +165,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
-            android:text="Register" />
+            android:text="@string/title_register" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -166,14 +177,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sudah punya akun ?" />
+                android:text="@string/have_account" />
 
             <TextView
                 android:id="@+id/btn_change_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Login"
+                android:layout_marginStart="10dp"
+                android:text="@string/title_login"
                 android:textStyle="bold" />
         </LinearLayout>
 

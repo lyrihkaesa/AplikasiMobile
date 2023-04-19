@@ -12,7 +12,7 @@
     <color name="green_500">#22c55e</color>
 
     <color name="red">@color/red_500</color>
-    <color name="yellow">@color/yellow_500</color>
+    <color name="yellow">#FBC02D</color>
     <color name="green">@color/green_500</color>
     <color name="blue">@color/design_default_color_primary_variant</color>
     <color name="grey">#AFAFAF</color>

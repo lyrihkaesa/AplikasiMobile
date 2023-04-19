@@ -6,13 +6,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
+import com.udinus.aplikasimobile.database.model.User;
 import com.udinus.aplikasimobile.databinding.ActivityEntryKhsBinding;
-
-import java.util.Objects;
 
 public class EntryKhs extends AppCompatActivity {
 
@@ -26,6 +24,12 @@ public class EntryKhs extends AppCompatActivity {
         // Mengganti setContentView dengan binding
         binding = ActivityEntryKhsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        User user = getIntent().getParcelableExtra("key_user");
+
+        binding.tvNim.setText(user.getNim());
+        binding.tvFullName.setText(user.getMahasiswa().getName());
+        binding.tvMajor.setText(String.format("%s - %s", user.getMahasiswa().getMajor(), user.getMahasiswa().getDegree()));
 
         databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase database = databaseHelper.getWritableDatabase();

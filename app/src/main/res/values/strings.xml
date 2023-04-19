@@ -30,4 +30,24 @@
     <string name="default_major">Sistem Informasi</string>
     <string name="default_degree">S1</string>
     <string name="default_nim">A12.2020.</string>
+    <string name="title_login">Login</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+    <string name="dont_have_account">Belum punya akun ?</string>
+    <string name="have_account">Sudah punya akun ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="label_matakuliah">Matakuliah</string>
+    <string name="hint_code_matkul">Isi kode maktul!</string>
+    <string name="hint_name_matkul">Isi nama maktul!</string>
+    <string name="title_entry_data_khs">Entry Data KHS</string>
+    <string name="label_predicate">Predikat</string>
+    <string name="hint_predicate">Isi predikat maktul!</string>
+    <string name="save">Simpan</string>
+    <string name="hint_letter_grade">Isi nilai huruf maktul!</string>
+    <string name="label_letter_grade">N. Huruf</string>
+    <string name="hint_grade">Isi nilai angka maktul!</string>
+    <string name="label_grade">N. Angka</string>
+    <string name="hint_sks">Isi sks maktul!</string>
+    <string name="label_sks">SKS</string>
+    <string name="delete">Hapus</string>
 </resources>
