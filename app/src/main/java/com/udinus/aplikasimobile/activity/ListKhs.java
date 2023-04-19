@@ -3,7 +3,6 @@ package com.udinus.aplikasimobile.activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,9 +14,10 @@ import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.databinding.ActivityListKhsBinding;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ListKhs extends AppCompatActivity {
+    ActivityListKhsBinding binding;
     DatabaseHelper databaseHelper;
     private SQLiteDatabase database;
     private KhsDao khsDao;
@@ -27,9 +27,8 @@ public class ListKhs extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("CHECK", "onCreate: ListKhs");
         // Mengganti setContentView dengan binding
-        ActivityListKhsBinding binding = ActivityListKhsBinding.inflate(getLayoutInflater());
+        binding = ActivityListKhsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         databaseHelper = new DatabaseHelper(this);
@@ -65,6 +64,7 @@ public class ListKhs extends AppCompatActivity {
         list.clear();
         list.addAll(khsDao.getAll());
         khsRvAdapter.notifyItemRangeChanged(0, list.size());
+        countFooter();
     }
 
     @Override
@@ -72,5 +72,18 @@ public class ListKhs extends AppCompatActivity {
         super.onDestroy();
         databaseHelper.close();
         database.close();
+    }
+
+    private void countFooter(){
+        Double totalGrades = 0.0;
+        Integer totalSks = 0;
+        for (Khs khs : list) {
+            totalGrades += khs.getGrade();
+            totalSks += khs.getSks();
+        }
+        Double ipk = totalGrades/list.size();
+        binding.tvIpk.setText(String.valueOf(ipk));
+        binding.tvTotalSks.setText(String.valueOf(totalSks));
+        binding.tvTotalMatkul.setText(String.valueOf(list.size()));
     }
 }

@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/title_khs"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_border_blue"
         android:gravity="center_horizontal"
@@ -196,9 +196,9 @@
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/rounded_border_blue"
-        android:orientation="horizontal">
+        android:background="@drawable/rounded_border_blue">
 
         <TableLayout
             android:id="@+id/table_ipk"
@@ -214,17 +214,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ipk" />
+                    android:text="@string/label_ipk" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
                     android:text="@string/titik_dua" />
 
                 <TextView
+                    android:id="@+id/tv_ipk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:text="@string/number_zero" />
             </TableRow>
 
             <TableRow
@@ -234,17 +236,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total SKS" />
+                    android:text="@string/label_total_sks" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
                     android:text="@string/titik_dua" />
 
                 <TextView
+                    android:id="@+id/tv_total_sks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:text="@string/number_zero" />
             </TableRow>
 
             <TableRow
@@ -254,31 +258,33 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jumlah Mata Kuliah" />
+                    android:text="@string/label_total_matkul" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="5dp"
                     android:text="@string/titik_dua" />
 
                 <TextView
+                    android:id="@+id/tv_total_matkul"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:text="@string/number_zero" />
             </TableRow>
         </TableLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <ImageButton
             android:id="@+id/add_khs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@drawable/button_primary"
-            android:gravity="center"
-            android:text="+"
-            android:textColor="@color/blue"
-            android:textSize="20sp" />
+            android:src="@drawable/round_add_24"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="20dp"
+            android:contentDescription="@string/entry_khs" />
     </RelativeLayout>
 
 </RelativeLayout>

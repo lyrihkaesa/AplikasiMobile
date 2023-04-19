@@ -17,5 +17,8 @@
     <string name="text_sks">SKS</string>
     <string name="text_predicate">Predikat</string>
     <string name="label_code_matkul">Kode</string>
-    <string name="ipk">IPK</string>
+    <string name="label_ipk">IPK</string>
+    <string name="label_total_matkul">Jumlah Mata Kuliah</string>
+    <string name="label_total_sks">Total SKS</string>
+    <string name="number_zero">0</string>
 </resources>
