@@ -1,56 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/table_content_cell_bg"
+    android:orientation="horizontal">
 
-    <TableRow
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_no"
+        android:padding="4dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        tools:ignore="UselessParent">
+        android:layout_gravity="top"
+        android:layout_weight="2"
+        android:text="@string/text_no"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_no" />
+    <TextView
+        android:id="@+id/tv_code"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="4"
+        android:text="@string/text_code"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/text_code" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="7"
+        android:text="@string/text_name"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:text="@string/text_name" />
+    <TextView
+        android:id="@+id/tv_sks"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="3"
+        android:text="@string/text_sks"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv_number_grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/text_number_grade" />
+    <TextView
+        android:id="@+id/tv_grade"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="3"
+        android:text="@string/text_number_grade"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv_latter_grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/text_letter_grade" />
+    <TextView
+        android:id="@+id/tv_letter_grade"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="3"
+        android:text="@string/text_letter_grade"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tv_sks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/text_sks" />
-    </TableRow>
-
-</TableLayout>
+</LinearLayout>

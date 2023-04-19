@@ -15,8 +15,8 @@ public class KhsRvAdapter extends RecyclerView.Adapter<KhsRvAdapter.KhsRvHolder>
     private final ArrayList<Khs> khsArrayList;
     private OnItemClickCallback onItemClickCallback;
 
-    public KhsRvAdapter(ArrayList<Khs> medicineArrayList) {
-        this.khsArrayList = medicineArrayList;
+    public KhsRvAdapter(ArrayList<Khs> khsArrayList) {
+        this.khsArrayList = khsArrayList;
     }
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
@@ -37,11 +37,11 @@ public class KhsRvAdapter extends RecyclerView.Adapter<KhsRvAdapter.KhsRvHolder>
         holder.binding.tvNo.setText(String.valueOf(position + 1));
         holder.binding.tvCode.setText(khs.getCodeMatkul());
         holder.binding.tvName.setText(khs.getNameMatkul());
-        holder.binding.tvNumberGrade.setText(String.valueOf(khs.getGrade()));
-        holder.binding.tvLatterGrade.setText(khs.getLetterGrade());
         holder.binding.tvSks.setText(String.valueOf(khs.getSks()));
+        holder.binding.tvGrade.setText(String.valueOf(khs.getGrade()));
+        holder.binding.tvLetterGrade.setText(khs.getLetterGrade());
 
-        holder.itemView.setOnClickListener(view -> onItemClickCallback.onItemClicked(khsArrayList.get(position)));
+        holder.itemView.setOnClickListener(view -> onItemClickCallback.onItemClicked(khs));
     }
 
     @Override

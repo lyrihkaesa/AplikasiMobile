@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_khs"
-        android:layout_marginTop="10dp">
+        android:layout_marginVertical="10dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -91,72 +91,106 @@
         </TableRow>
     </TableLayout>
 
-    <TableLayout
-        android:id="@+id/table_header_rv_khs"
+    <LinearLayout
+        android:id="@+id/table_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/table_identity"
-        android:layout_marginTop="10dp">
+        android:layout_below="@id/table_identity"
+        android:orientation="horizontal">
 
-        <TableRow
-            style="@style/TableHeaderRow"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_no"
+            android:textSize="12sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:ignore="UselessParent">
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_gravity="top"
+            android:layout_weight="2"
+            android:background="@drawable/table_header_cell_bg"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="@string/text_no" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/text_no"
-                android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tv_code"
+            android:textSize="12sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_gravity="top"
+            android:layout_weight="4"
+            android:background="@drawable/table_header_cell_bg"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="@string/text_code"  />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/text_code"
-                android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:textSize="12sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_gravity="top"
+            android:layout_weight="7"
+            android:background="@drawable/table_header_cell_bg"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="@string/text_name" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="@string/text_name"
-                android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tv_sks"
+            android:textSize="12sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_gravity="top"
+            android:layout_weight="3"
+            android:background="@drawable/table_header_cell_bg"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="@string/text_sks" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/text_sks"
-                android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tv_grade"
+            android:textSize="12sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_gravity="top"
+            android:layout_weight="3"
+            android:background="@drawable/table_header_cell_bg"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="@string/text_number_grade" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/text_number_grade"
-                android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tv_letter_grade"
+            android:textSize="12sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_gravity="top"
+            android:layout_weight="3"
+            android:background="@drawable/table_header_cell_bg"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:text="@string/text_letter_grade" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="@string/text_letter_grade"
-                android:textColor="@color/white" />
-        </TableRow>
-    </TableLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_khs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/footer"
-        android:layout_below="@+id/table_header_rv_khs"
+        android:layout_below="@+id/table_header"
         android:layout_marginTop="2dp" />
-
 
     <RelativeLayout
         android:id="@+id/footer"
@@ -171,7 +205,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp">
 
             <TableRow
