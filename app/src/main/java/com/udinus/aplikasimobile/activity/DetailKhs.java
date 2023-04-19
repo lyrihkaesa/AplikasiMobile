@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.udinus.aplikasimobile.R;
@@ -19,6 +20,7 @@ public class DetailKhs extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     SQLiteDatabase database;
     private KhsDao khsDao;
+    Khs khs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,7 @@ public class DetailKhs extends AppCompatActivity {
         database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
-        Khs khs = getIntent().getParcelableExtra("key_khs");
-
+        khs = getIntent().getParcelableExtra("key_khs");
 
         binding.edtCodeMatkul.setText(khs.getCodeMatkul());
         binding.edtNameMatkul.setText(khs.getNameMatkul());
@@ -58,10 +59,8 @@ public class DetailKhs extends AppCompatActivity {
         binding.btnCancel.setOnClickListener(v -> finish());
 
         binding.btnDelete.setOnClickListener(v -> {
-            if (khsDao.delete(binding.edtCodeMatkul.getText().toString()) > 0) {
-                Toast.makeText(this, "Berhasil menghapus mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
-            }
-            finish();
+            AlertDialog diaBox = AskOption();
+            diaBox.show();
         });
     }
 
@@ -89,5 +88,18 @@ public class DetailKhs extends AppCompatActivity {
             Toast.makeText(this, "Berhasil menambahkan mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
         }
         finish();
+    }
+
+    private AlertDialog AskOption() {
+        return new AlertDialog.Builder(this)
+                // set message, title, and icon
+                .setTitle("Hapus").setMessage("Apakah anda ingin menghapus " + khs.getNameMatkul() + "?").setIcon(R.drawable.round_delete_24).setPositiveButton("Hapus", (dialog, whichButton) -> {
+                    //your deleting code
+                    if (khsDao.delete(binding.edtCodeMatkul.getText().toString()) > 0) {
+                        Toast.makeText(this, "Berhasil menghapus mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
+                    finish();
+                }).setNegativeButton("Batal", (dialog, which) -> dialog.dismiss()).create();
     }
 }
