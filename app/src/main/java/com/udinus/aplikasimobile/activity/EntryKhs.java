@@ -1,13 +1,11 @@
 package com.udinus.aplikasimobile.activity;
 
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.udinus.aplikasimobile.MainActivity;
 import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
@@ -21,6 +19,7 @@ public class EntryKhs extends AppCompatActivity {
     private ActivityEntryKhsBinding binding;
     DatabaseHelper databaseHelper;
     private KhsDao khsDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +27,6 @@ public class EntryKhs extends AppCompatActivity {
         binding = ActivityEntryKhsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Mengubah judul yang ada pada App Bar
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.entry_khs);
         databaseHelper = new DatabaseHelper(this);
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
@@ -53,11 +50,11 @@ public class EntryKhs extends AppCompatActivity {
         khs.setPredicate(binding.edtPredicate.getText().toString());
 
         // insert object khs ke database
-        if(khsDao.insert(khs)>0){
+        if (khsDao.insert(khs) > 0) {
             Toast.makeText(this, "Berhasil menambahkan mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
         }
 
-       startActivity(new Intent(EntryKhs.this, MainActivity.class));
+        finish();
     }
 
 }

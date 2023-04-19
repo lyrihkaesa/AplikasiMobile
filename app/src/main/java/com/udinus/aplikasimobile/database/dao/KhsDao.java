@@ -16,7 +16,6 @@ public class KhsDao {
     public static final String COLUMN_GRADES = "grades";
     public static final String COLUMN_LETTER_GRADES = "letter_grades";
     public static final String COLUMN_PREDICATE = "predicate";
-
     public static final String CREATE_TABLE_QUERY =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     COLUMN_CODE_MATKUL + " TEXT PRIMARY KEY NOT NULL, " +
@@ -26,10 +25,8 @@ public class KhsDao {
                     COLUMN_LETTER_GRADES + " TEXT, " +
                     COLUMN_PREDICATE + " TEXT" +
                     ")";
-
     public static final String DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
-
     private final SQLiteDatabase database;
 
     public KhsDao(SQLiteDatabase database) {
@@ -39,7 +36,6 @@ public class KhsDao {
     public static void createTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE_QUERY);
     }
-
     public static void dropTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(DROP_TABLE_QUERY);
     }
@@ -63,20 +59,21 @@ public class KhsDao {
         contentValues.put(COLUMN_GRADES, khs.getGrade());
         contentValues.put(COLUMN_LETTER_GRADES, khs.getLetterGrade());
         contentValues.put(COLUMN_PREDICATE, khs.getPredicate());
+
         String whereClause = COLUMN_CODE_MATKUL + " = ?";
-        String[] whereArgs = { String.valueOf(khs.getCodeMatkul()) };
+        String[] whereArgs = {String.valueOf(khs.getCodeMatkul())};
         return database.update(TABLE_NAME, contentValues, whereClause, whereArgs);
     }
 
     public int delete(String codeMatkul) {
         String whereClause = COLUMN_CODE_MATKUL + " = ?";
-        String[] whereArgs = { String.valueOf(codeMatkul) };
+        String[] whereArgs = {String.valueOf(codeMatkul)};
         return database.delete(TABLE_NAME, whereClause, whereArgs);
     }
 
     public ArrayList<Khs> getAll() {
         ArrayList<Khs> khsArrayList = new ArrayList<>();
-        String[] columns = { COLUMN_CODE_MATKUL, COLUMN_NAME_MATKUL, COLUMN_SKS, COLUMN_GRADES, COLUMN_LETTER_GRADES, COLUMN_PREDICATE };
+        String[] columns = {COLUMN_CODE_MATKUL, COLUMN_NAME_MATKUL, COLUMN_SKS, COLUMN_GRADES, COLUMN_LETTER_GRADES, COLUMN_PREDICATE};
         Cursor cursor = database.query(TABLE_NAME, columns, null, null, null, null, null);
         while (cursor.moveToNext()) {
             Khs khs = new Khs();

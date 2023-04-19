@@ -31,7 +31,7 @@
             android:name=".activity.EntryKhs"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.ListKhs"
             android:exported="false"/>
     </application>
 

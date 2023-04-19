@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.udinus.aplikasimobile.MainActivity;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.UserDao;
 import com.udinus.aplikasimobile.databinding.ActivityLoginBinding;
@@ -33,9 +32,9 @@ public class Login extends AppCompatActivity {
             String username = binding.logUsername.getText().toString();
             String password = binding.logPassword.getText().toString();
             if (userDao.isValid(username, password)) {
-                startActivity(new Intent(Login.this, MainActivity.class));
+                startActivity(new Intent(Login.this, ListKhs.class));
             } else {
-                Toast.makeText(this, "Username dan Password salah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Username dan Password salah", Toast.LENGTH_LONG).show();
             }
         });
         binding.btnSwitchRegister.setOnClickListener(v -> startActivity(new Intent(Login.this, Register.class)));
