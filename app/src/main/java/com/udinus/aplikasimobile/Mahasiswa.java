@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.database.model;
+package com.udinus.aplikasimobile;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,9 +9,7 @@ public class Mahasiswa implements Parcelable {
 
     private String nim;
     private String name;
-    private String email;
-    private String major;
-    private String degree;
+    private String password;
 
     public Mahasiswa() {
     }
@@ -32,28 +30,12 @@ public class Mahasiswa implements Parcelable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public String getDegree() {
-        return degree;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -65,17 +47,13 @@ public class Mahasiswa implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(this.nim);
         dest.writeString(this.name);
-        dest.writeString(this.email);
-        dest.writeString(this.major);
-        dest.writeString(this.degree);
+        dest.writeString(this.password);
     }
 
     protected Mahasiswa(Parcel in) {
         this.nim = in.readString();
         this.name = in.readString();
-        this.email = in.readString();
-        this.major = in.readString();
-        this.degree = in.readString();
+        this.password = in.readString();
     }
 
     public static final Creator<Mahasiswa> CREATOR = new Creator<Mahasiswa>() {

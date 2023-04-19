@@ -1,13 +1,12 @@
-package com.udinus.aplikasimobile.adapter;
+package com.udinus.aplikasimobile;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.udinus.aplikasimobile.database.model.Khs;
-import com.udinus.aplikasimobile.databinding.ItemRowKhsBinding;
 
 import java.util.ArrayList;
 
@@ -27,19 +26,19 @@ public class KhsRvAdapter extends RecyclerView.Adapter<KhsRvAdapter.KhsRvHolder>
     @NonNull
     @Override
     public KhsRvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemRowKhsBinding binding = ItemRowKhsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new KhsRvHolder(binding);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_khs, parent, false);
+        return new KhsRvHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull KhsRvHolder holder, int position) {
         Khs khs = khsArrayList.get(position);
-        holder.binding.tvNo.setText(String.valueOf(position + 1));
-        holder.binding.tvCode.setText(khs.getCodeMatkul());
-        holder.binding.tvName.setText(khs.getNameMatkul());
-        holder.binding.tvSks.setText(String.valueOf(khs.getSks()));
-        holder.binding.tvGrade.setText(String.valueOf(khs.getGrade()));
-        holder.binding.tvLetterGrade.setText(khs.getLetterGrade());
+        holder.tvNo.setText(String.valueOf(position + 1));
+        holder.tvCode.setText(khs.getCodeMatkul());
+        holder.tvName.setText(khs.getNameMatkul());
+        holder.tvSks.setText(String.valueOf(khs.getSks()));
+        holder.tvGrade.setText(String.valueOf(khs.getGrade()));
+        holder.tvLetterGrade.setText(khs.getLetterGrade());
 
         holder.itemView.setOnClickListener(view -> onItemClickCallback.onItemClicked(khs));
     }
@@ -52,11 +51,16 @@ public class KhsRvAdapter extends RecyclerView.Adapter<KhsRvAdapter.KhsRvHolder>
     // Class Holder untuk List Khs RecyclerView
     public static class KhsRvHolder extends RecyclerView.ViewHolder {
 
-        ItemRowKhsBinding binding;
+        TextView tvNo, tvCode, tvName, tvSks, tvGrade, tvLetterGrade;
 
-        public KhsRvHolder(@NonNull ItemRowKhsBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+        public KhsRvHolder(@NonNull View itemView) {
+            super(itemView);
+            tvNo = itemView.findViewById(R.id.tv_no);
+            tvCode = itemView.findViewById(R.id.tv_code);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvSks = itemView.findViewById(R.id.tv_sks);
+            tvGrade = itemView.findViewById(R.id.tv_grade);
+            tvLetterGrade = itemView.findViewById(R.id.tv_letter_grade);
         }
     }
 
