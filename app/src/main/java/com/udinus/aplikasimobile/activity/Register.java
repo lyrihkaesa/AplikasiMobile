@@ -101,11 +101,11 @@ public class Register extends AppCompatActivity {
 
             user.setMahasiswa(mahasiswa);
             if(userDao.insert(user)>0 && mahasiswaDao.insert(mahasiswa) > 0){
-                Toast.makeText(this, mahasiswa.getName() + "sukses mendaftarkan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, mahasiswa.getName() + " sukses mendaftarkan", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Register.this, Login.class));
             }
         });
-        binding.btnChangeLogin.setOnClickListener(v -> startActivity(new Intent(Register.this, Login.class)));
+        binding.tvSwitchLogin.setOnClickListener(v -> startActivity(new Intent(Register.this, Login.class)));
     }
 
     @Override

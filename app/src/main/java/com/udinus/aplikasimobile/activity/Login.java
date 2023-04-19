@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity {
             String nimOrUsername = binding.logNimOrUsername.getText().toString();
             User user = userDao.getUserByNim(nimOrUsername);
             if (user == null) {
-                binding.logNimOrUsername.setError("NIM atau Username " + nimOrUsername + "tidak ditemukan!");
+                binding.logNimOrUsername.setError("NIM atau Username " + nimOrUsername + " tidak ditemukan!");
                 return;
             }
             String password = binding.logPassword.getText().toString();
@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity {
                 binding.logPassword.setError("Password anda salah!");
             }
         });
-        binding.btnSwitchRegister.setOnClickListener(v -> startActivity(new Intent(Login.this, Register.class)));
+        binding.tvSwitchRegister.setOnClickListener(v -> startActivity(new Intent(Login.this, Register.class)));
     }
 
     @Override

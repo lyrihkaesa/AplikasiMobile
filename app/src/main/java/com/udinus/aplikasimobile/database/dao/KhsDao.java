@@ -79,8 +79,8 @@ public class KhsDao {
             Khs khs = new Khs();
             khs.setCodeMatkul(cursor.getString(0));
             khs.setNameMatkul(cursor.getString(1));
-            khs.setSks(Integer.valueOf(cursor.getString(2)));
-            khs.setGrade(Double.valueOf(cursor.getString(3)));
+            khs.setSks(cursor.getInt(2));
+            khs.setGrade(cursor.getDouble(3));
             khs.setLetterGrade(cursor.getString(4));
             khs.setPredicate(cursor.getString(5));
             khsArrayList.add(khs);
