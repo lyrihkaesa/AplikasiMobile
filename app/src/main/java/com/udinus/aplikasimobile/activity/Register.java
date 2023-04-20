@@ -41,54 +41,76 @@ public class Register extends AppCompatActivity {
         binding.regDegree.setText(R.string.default_degree);
         binding.regNim.setText(R.string.default_nim);
 
+        // Membuat kursor autofokus
+        binding.regUsername.requestFocus();
+
+        // Saat TextInputEditText regPassword diklik
+        binding.regPassword.setOnClickListener(v -> {
+            // Maka hilangkan pesan error pada TextInputLayout tilPassword
+            binding.tilPassword.setError(null);
+        });
+
+        // Saat TextInputEditText regConfirmPassword diklik
+        binding.regConfirmPassword.setOnClickListener(v -> {
+            // Maka hilangkan pesan error pada TextInputLayout tilConfirmPassword
+            binding.tilConfirmPassword.setError(null);
+        });
+
         // Saat Button btnRegister diklik
         binding.btnRegister.setOnClickListener(v -> {
             // Pengecekan apakah EditText kosong atau tidak
             if (TextUtils.isEmpty(binding.regUsername.getText())) {
                 // Tampilkan pesan kesalahan pada EditText
-                binding.regUsername.setError("Username harus diisi");
-                return;
-            }
-
-            if (TextUtils.isEmpty(binding.regPassword.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.regPassword.setError("Password harus diisi");
+                binding.regUsername.setError("Username harus diisi!");
                 return;
             }
 
             if (TextUtils.isEmpty(binding.regNim.getText())) {
                 // Tampilkan pesan kesalahan pada EditText
-                binding.regNim.setError("NIM harus diisi");
+                binding.regNim.setError("NIM harus diisi!");
                 return;
             }
 
             if (TextUtils.isEmpty(binding.regName.getText())) {
                 // Tampilkan pesan kesalahan pada EditText
-                binding.regName.setError("Nama harus diisi");
+                binding.regName.setError("Nama harus diisi!");
                 return;
             }
 
             if (TextUtils.isEmpty(binding.regEmail.getText())) {
                 // Tampilkan pesan kesalahan pada EditText
-                binding.regEmail.setError("Email harus diisi");
+                binding.regEmail.setError("Email harus diisi!");
                 return;
             }
 
             if (TextUtils.isEmpty(binding.regMajor.getText())) {
                 // Tampilkan pesan kesalahan pada EditText
-                binding.regMajor.setError("Jurusan harus diisi");
+                binding.regMajor.setError("Jurusan harus diisi!");
                 return;
             }
 
             if (TextUtils.isEmpty(binding.regDegree.getText())) {
                 // Tampilkan pesan kesalahan pada EditText
-                binding.regDegree.setError("Gelar harus diisi");
+                binding.regDegree.setError("Gelar harus diisi!");
+                return;
+            }
+
+            if (TextUtils.isEmpty(binding.regPassword.getText())) {
+                // Tampilkan pesan kesalahan pada TextInputLayout
+                binding.tilPassword.setError("Password harus diisi!");
+                return;
+            }
+
+            if(TextUtils.isEmpty(binding.regConfirmPassword.getText())){
+                // Tampilkan pesan kesalahan pada TextInputLayout
+                binding.tilConfirmPassword.setError("Confirm password harus diisi!");
                 return;
             }
 
             // Pengecekan apakah EditText regConfirmPassword isinya sama dengan EditText regPassword
             if (!binding.regConfirmPassword.getText().toString().equals(binding.regPassword.getText().toString())) {
-                binding.regConfirmPassword.setError("Password dan Confirm Password harus sama");
+                // Tampilkan pesan kesalahan pada TextInputLayout
+                binding.tilConfirmPassword.setError("Password dan Confirm Password harus sama!");
                 return;
             }
 

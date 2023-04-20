@@ -34,6 +34,15 @@ public class Login extends AppCompatActivity {
         userDao = new UserDao(database);
         mahasiswaDao = new MahasiswaDao(database);
 
+        // Membuat kursor autofokus
+        binding.logNimOrUsername.requestFocus();
+
+        // Saat TextInputEditText logPassword diklik
+        binding.logPassword.setOnClickListener(v -> {
+            // Maka hilangkan pesan error pada TextInputLayout tilPassword
+            binding.tilPassword.setError(null);
+        });
+
         // Saat Button btnLogin diklik
         binding.btnLogin.setOnClickListener(v -> {
             // Pengecekan apakah EditText kosong atau tidak
@@ -43,8 +52,8 @@ public class Login extends AppCompatActivity {
                 return;
             }
             if (TextUtils.isEmpty(binding.logPassword.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.logPassword.setError("Password tidak boleh kosong!");
+                // Tampilkan pesan kesalahan pada TextInputLayout
+                binding.tilPassword.setError("Password tidak boleh kosong!");
                 return;
             }
 
@@ -73,8 +82,8 @@ public class Login extends AppCompatActivity {
                 intent.putExtra("key_user", user);
                 startActivity(intent);
             } else {
-                // Jika tidak sama maka akan menampilkan pesan kesalahan pada EditText
-                binding.logPassword.setError("Password anda salah!");
+                // Jika tidak sama maka akan menampilkan pesan kesalahan pada TextInputLayout
+                binding.tilPassword.setError("Password anda salah!");
             }
         });
 

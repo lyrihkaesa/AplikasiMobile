@@ -149,7 +149,7 @@ public class DetailKhs extends AppCompatActivity {
 
         // update object khs ke database
         if (khsDao.update(khs) > 0) {
-            Toast.makeText(this, "Berhasil menambahkan mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Berhasil mengubah mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
         }
         // Method finish() melakukan mengeluarkan/pop activity sekarang dan kemabli ke activity sebelumnya.
         finish();
