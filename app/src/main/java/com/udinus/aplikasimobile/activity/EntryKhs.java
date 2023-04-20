@@ -26,25 +26,31 @@ public class EntryKhs extends AppCompatActivity {
         binding = ActivityEntryKhsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Mengambil/mendapatkan data user yang dikirim dari activity sebelumnya dengan key "key_user"
         User user = getIntent().getParcelableExtra("key_user");
 
+        // Mengubah nilai/value yang ada pada TableIdentity
         binding.tvNim.setText(user.getNim());
         binding.tvFullName.setText(user.getMahasiswa().getName());
         binding.tvMajor.setText(String.format("%s - %s", user.getMahasiswa().getMajor(), user.getMahasiswa().getDegree()));
 
+        // Inisialisasi database dan DAO
         databaseHelper = new DatabaseHelper(this);
         database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
+        // Saat Button save diklik menjalankan/memanggil method/function addKhs()
         binding.btnSave.setOnClickListener(v -> addKhs());
 
+        // Saat Button cancel diklik menjalankan/memangil method/function finish()
+        // Method finish() melakukan mengeluarkan/pop activity sekarang dan kemabli ke activity sebelumnya.
         binding.btnCancel.setOnClickListener(v -> finish());
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // Memastikan tidak ada kebocoran memori (memory leak) saat menggunakan database
         databaseHelper.close();
         database.close();
     }
@@ -65,6 +71,7 @@ public class EntryKhs extends AppCompatActivity {
         if (khsDao.insert(khs) > 0) {
             Toast.makeText(this, "Berhasil menambahkan mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
         }
+        // Method finish() melakukan mengeluarkan/pop activity sekarang dan kemabli ke activity sebelumnya.
         finish();
     }
 

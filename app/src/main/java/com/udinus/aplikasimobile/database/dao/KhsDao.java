@@ -8,14 +8,47 @@ import com.udinus.aplikasimobile.database.model.Khs;
 
 import java.util.ArrayList;
 
+/**
+ * Class ini merepresentasikan Objek Akses Data (Data Access Object) [DAO] untuk tabel khs pada database.
+ */
 public class KhsDao {
+    /**
+     * Nama tabel pada database.
+     */
     public static final String TABLE_NAME = "khs";
+    /**
+     * Nama kolom code_matkul pada tabel khs.
+     * TipeData: TEXT PRIMARY KEY
+     */
     public static final String COLUMN_CODE_MATKUL = "code_matkul";
+    /**
+     * Nama kolom name_matkul pada tabel khs.
+     * TipeData: TEXT
+     */
     public static final String COLUMN_NAME_MATKUL = "name_matkul";
+    /**
+     * Nama kolom sks pada tabel khs.
+     * TipeData: INTEGER
+     */
     public static final String COLUMN_SKS = "sks";
+    /**
+     * Nama kolom grades pada tabel khs.
+     * TipeData: REAL
+     */
     public static final String COLUMN_GRADES = "grades";
+    /**
+     * Nama kolom letter_grades pada tabel khs.
+     * TipeData: TEXT
+     */
     public static final String COLUMN_LETTER_GRADES = "letter_grades";
+    /**
+     * Nama kolom predikat pada tabel khs.
+     * TipeData: TEXT
+     */
     public static final String COLUMN_PREDICATE = "predicate";
+    /**
+     * Query untuk membuat tabel khs dalam database
+     */
     public static final String CREATE_TABLE_QUERY =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     COLUMN_CODE_MATKUL + " TEXT PRIMARY KEY NOT NULL, " +
@@ -25,21 +58,46 @@ public class KhsDao {
                     COLUMN_LETTER_GRADES + " TEXT, " +
                     COLUMN_PREDICATE + " TEXT" +
                     ")";
+    /**
+     * Query untuk menghapus tabel khs dalam database
+     */
     public static final String DROP_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
     private final SQLiteDatabase database;
 
+    /**
+     * Konstruktor untuk class KhsDao.
+     *
+     * @param database Objek SQLiteDatabase yang digunakan untuk mengakses database.
+     */
     public KhsDao(SQLiteDatabase database) {
         this.database = database;
     }
 
+    /**
+     * Method/function untuk membuat tabel khs dalam database.
+     *
+     * @param sqLiteDatabase Objek SQLiteDatabase untuk eksekusi query.
+     */
     public static void createTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE_QUERY);
     }
+
+    /**
+     * Method/function untuk menghapus tabel khs dalam database.
+     *
+     * @param sqLiteDatabase Objek SQLiteDatabase untuk eksekusi query.
+     */
     public static void dropTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(DROP_TABLE_QUERY);
     }
 
+    /**
+     * Method/function untuk insert/post/memasukan/input data khs pada tabel khs.
+     *
+     * @param khs Objek Khs yang akan dimasukan.
+     * @return long ID dari baris yang telah dimasukan, atau -1 jika terjadi kesalahan.
+     */
     public long insert(Khs khs) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_CODE_MATKUL, khs.getCodeMatkul());
@@ -51,6 +109,12 @@ public class KhsDao {
         return database.insert(TABLE_NAME, null, contentValues);
     }
 
+    /**
+     * Method/function untuk update/put/mengubah/mengedit data khs pada tabel khs.
+     *
+     * @param khs Objek Khs yang akan diubah.
+     * @return int jumlah baris yang berhasil diubah pada tabel khs.
+     */
     public int update(Khs khs) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_NAME_MATKUL, khs.getNameMatkul());
@@ -65,12 +129,23 @@ public class KhsDao {
         return database.update(TABLE_NAME, contentValues, whereClause, whereArgs);
     }
 
+    /**
+     * Method/function untuk delete/menghapus data khs pada tabel khs berdasarkan kode matkul.
+     *
+     * @param codeMatkul Kode mata kuliah yang akan dihapus.
+     * @return int jumlah baris yang terhapus pada tabel khs.
+     */
     public int delete(String codeMatkul) {
         String whereClause = COLUMN_CODE_MATKUL + " = ?";
         String[] whereArgs = {String.valueOf(codeMatkul)};
         return database.delete(TABLE_NAME, whereClause, whereArgs);
     }
 
+    /**
+     * Method/function select/get/mengambil semua data khs dari tabel khs.
+     *
+     * @return ArrayList<Khs> berisi semua data khs.
+     */
     public ArrayList<Khs> getAll() {
         ArrayList<Khs> khsArrayList = new ArrayList<>();
         String[] columns = {COLUMN_CODE_MATKUL, COLUMN_NAME_MATKUL, COLUMN_SKS, COLUMN_GRADES, COLUMN_LETTER_GRADES, COLUMN_PREDICATE};
