@@ -92,15 +92,29 @@ public class Register extends AppCompatActivity {
                 return;
             }
 
+            // Memastikan username belum dibuat pada database
+            String username = binding.regUsername.getText().toString();
+            if (userDao.findUserByNimOrUsername(username) != null) {
+                binding.regUsername.setError("Username sudah ada!");
+                return;
+            }
+
+            // Memastikan nim belum dibuat pada database
+            String nim = binding.regNim.getText().toString();
+            if (userDao.findUserByNimOrUsername(nim) != null && mahasiswaDao.findMahasiswaByNim(nim) != null) {
+                binding.regNim.setError("NIM sudah ada!");
+                return;
+            }
+
             // Memasukan semua data pada EditText ke Object User
             User user = new User();
-            user.setUsername(binding.regUsername.getText().toString());
+            user.setUsername(username);
             user.setPassword(binding.regPassword.getText().toString());
-            user.setNim(binding.regNim.getText().toString());
+            user.setNim(nim);
 
             // Memasukan semua data pada EditText ke Object Mahasiswa
             Mahasiswa mahasiswa = new Mahasiswa();
-            mahasiswa.setNim(binding.regNim.getText().toString());
+            mahasiswa.setNim(nim);
             mahasiswa.setName(binding.regName.getText().toString());
             mahasiswa.setEmail(binding.regEmail.getText().toString());
             mahasiswa.setMajor(binding.regMajor.getText().toString());

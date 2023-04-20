@@ -2,6 +2,7 @@ package com.udinus.aplikasimobile.activity;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -82,14 +83,67 @@ public class DetailKhs extends AppCompatActivity {
     }
 
     private void editKhs() {
+        // Pengecekan TextView tidak boleh kosong/empty
+        if (TextUtils.isEmpty(binding.edtCodeMatkul.getText())) {
+            // Tampilkan pesan kesalahan pada EditText
+            binding.edtCodeMatkul.setError("Kode mata kuliah tidak boleh kosong");
+            return;
+        }
+
+        if (TextUtils.isEmpty(binding.edtNameMatkul.getText())) {
+            // Tampilkan pesan kesalahan pada EditText
+            binding.edtNameMatkul.setError("Nama mata kuliah tidak boleh kosong");
+            return;
+        }
+
+        if (TextUtils.isEmpty(binding.edtGrade.getText())) {
+            // Tampilkan pesan kesalahan pada EditText
+            binding.edtGrade.setError("Nilai angka tidak boleh kosong");
+            return;
+        }
+
+        if (TextUtils.isEmpty(binding.edtLetterGrade.getText())) {
+            // Tampilkan pesan kesalahan pada EditText
+            binding.edtLetterGrade.setError("Nilai huruf tidak boleh kosong");
+            return;
+        }
+
+        if (TextUtils.isEmpty(binding.edtSks.getText())) {
+            // Tampilkan pesan kesalahan pada EditText
+            binding.edtSks.setError("SKS tidak boleh kosong");
+            return;
+        }
+
+        if (TextUtils.isEmpty(binding.edtPredicate.getText())) {
+            // Tampilkan pesan kesalahan pada EditText
+            binding.edtPredicate.setError("Predikat tidak boleh kosong");
+            return;
+        }
+
+        int sks;
+        try {
+            sks = Integer.parseInt(binding.edtSks.getText().toString().trim());
+        } catch (NumberFormatException e) {
+            binding.edtSks.setError("SKS harus diisi dengan angka bulat");
+            return;
+        }
+
+        double grade;
+        try {
+            grade = Double.parseDouble(binding.edtGrade.getText().toString().trim());
+        } catch (NumberFormatException e) {
+            binding.edtGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal");
+            return;
+        }
+
         // Membuat object khs
         Khs khs = new Khs();
 
         // Set/Input/Masukan nilai ke object khs
         khs.setCodeMatkul(binding.edtCodeMatkul.getText().toString());
         khs.setNameMatkul(binding.edtNameMatkul.getText().toString());
-        khs.setSks(Integer.valueOf(binding.edtSks.getText().toString()));
-        khs.setGrade(Double.valueOf(binding.edtGrade.getText().toString()));
+        khs.setSks(sks);
+        khs.setGrade(grade);
         khs.setLetterGrade(binding.edtLetterGrade.getText().toString());
         khs.setPredicate(binding.edtPredicate.getText().toString());
 

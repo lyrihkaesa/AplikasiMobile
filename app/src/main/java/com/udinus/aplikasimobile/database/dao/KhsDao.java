@@ -49,20 +49,11 @@ public class KhsDao {
     /**
      * Query untuk membuat tabel khs dalam database
      */
-    public static final String CREATE_TABLE_QUERY =
-            "CREATE TABLE " + TABLE_NAME + " (" +
-                    COLUMN_CODE_MATKUL + " TEXT PRIMARY KEY NOT NULL, " +
-                    COLUMN_NAME_MATKUL + " TEXT, " +
-                    COLUMN_SKS + " INTEGER, " +
-                    COLUMN_GRADES + " REAL, " +
-                    COLUMN_LETTER_GRADES + " TEXT, " +
-                    COLUMN_PREDICATE + " TEXT" +
-                    ")";
+    public static final String CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_CODE_MATKUL + " TEXT PRIMARY KEY NOT NULL, " + COLUMN_NAME_MATKUL + " TEXT, " + COLUMN_SKS + " INTEGER, " + COLUMN_GRADES + " REAL, " + COLUMN_LETTER_GRADES + " TEXT, " + COLUMN_PREDICATE + " TEXT" + ")";
     /**
      * Query untuk menghapus tabel khs dalam database
      */
-    public static final String DROP_TABLE_QUERY =
-            "DROP TABLE IF EXISTS " + TABLE_NAME;
+    public static final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS " + TABLE_NAME;
     private final SQLiteDatabase database;
 
     /**
@@ -162,6 +153,32 @@ public class KhsDao {
         }
         cursor.close();
         return khsArrayList;
+    }
+
+    /**
+     * Find/Search/Get/Mencari/Mendapatkan data khs berdasarkan kode mata kuliah pada tabel khs
+     *
+     * @param codeMatkul kode mata kuliah dari khs yang akan dicari
+     * @return objek Khs yang memiliki kode mata kuliah yang sesuai, <code>null<code/> jika tidak ditemukan.
+     */
+    public Khs findKhsByCodeMatkul(String codeMatkul) {
+        String[] columns = {COLUMN_CODE_MATKUL, COLUMN_NAME_MATKUL, COLUMN_SKS, COLUMN_GRADES, COLUMN_LETTER_GRADES, COLUMN_PREDICATE};
+        String selection = COLUMN_CODE_MATKUL + "=?";
+        String[] selectionArgs = {codeMatkul};
+        Cursor cursor = database.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+
+        Khs khs = null;
+        if (cursor.moveToFirst()) {
+            khs = new Khs();
+            khs.setCodeMatkul(cursor.getString(0));
+            khs.setNameMatkul(cursor.getString(1));
+            khs.setSks(cursor.getInt(2));
+            khs.setGrade(cursor.getDouble(3));
+            khs.setLetterGrade(cursor.getString(4));
+            khs.setPredicate(cursor.getString(5));
+        }
+        cursor.close();
+        return khs;
     }
 }
 

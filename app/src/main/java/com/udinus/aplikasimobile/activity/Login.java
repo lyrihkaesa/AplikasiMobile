@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity {
 
             // Mendapatkan dan mencari user berdasarkan NIM dan username mahasiswa pada tabel user
             String nimOrUsername = binding.logNimOrUsername.getText().toString();
-            User user = userDao.findUserByNim(nimOrUsername);
+            User user = userDao.findUserByNimOrUsername(nimOrUsername);
 
             // Pengecekan apakah user tidak ditemukan atau null
             if (user == null) {

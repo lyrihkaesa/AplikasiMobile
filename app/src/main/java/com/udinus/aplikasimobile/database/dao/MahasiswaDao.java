@@ -172,5 +172,4 @@ public class MahasiswaDao {
         cursor.close();
         return mahasiswa;
     }
-
 }

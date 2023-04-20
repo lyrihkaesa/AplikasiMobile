@@ -136,7 +136,7 @@ public class UserDao {
      * @param nimOrUsername NIM atau username dari user yang akan dicari
      * @return objek User yang memiliki NIM yang sesuai, <code>null<code/> jika tidak ditemukan.
      */
-    public User findUserByNim(String nimOrUsername) {
+    public User findUserByNimOrUsername(String nimOrUsername) {
         String[] columns = {COLUMN_USERNAME, COLUMN_PASSWORD, COLUMN_NIM};
         String selection = COLUMN_NIM + " = ? OR " + COLUMN_USERNAME + " = ?";
         String[] selectionArgs = {nimOrUsername, nimOrUsername};

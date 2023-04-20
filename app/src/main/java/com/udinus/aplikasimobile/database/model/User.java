@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 /**
- * Class User merepresentasikan objek Mahasiswa dengan informasi seperti username, nim, password, dan obect mahasiswa
+ * Class User merepresentasikan objek User dengan informasi seperti username, nim, password, dan obect mahasiswa
  * Class ini mengimplementasikan interface Parcelable sehingga objek user dapat dikirimkan melalui Intent atau Bundle dalam Android.
  */
 public class User implements Parcelable {
