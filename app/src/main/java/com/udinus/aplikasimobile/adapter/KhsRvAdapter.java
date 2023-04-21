@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.databinding.ItemRowKhsBinding;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -64,7 +65,8 @@ public class KhsRvAdapter extends RecyclerView.Adapter<KhsRvAdapter.KhsRvHolder>
         holder.binding.tvCode.setText(khs.getCodeMatkul());
         holder.binding.tvName.setText(khs.getNameMatkul());
         holder.binding.tvSks.setText(String.valueOf(khs.getSks()));
-        holder.binding.tvGrade.setText(String.valueOf(khs.getGrade()));
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        holder.binding.tvGrade.setText(String.valueOf(decimalFormat.format(khs.getGrade())));
         holder.binding.tvLetterGrade.setText(khs.getLetterGrade());
 
         holder.itemView.setOnClickListener(view -> onItemClickCallback.onItemClicked(khs));

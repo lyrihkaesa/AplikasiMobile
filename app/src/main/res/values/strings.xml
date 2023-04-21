@@ -55,4 +55,53 @@
     <string name="save">Simpan</string>
     <string name="cancel">Batal</string>
     <string name="delete">Hapus</string>
+    <string name="generate">Generate</string>
+
+    <string-array name="data_code_matkul">
+        <item>ISP201</item>
+        <item>KFT110</item>
+        <item>KFT203</item>
+        <item>KOM101</item>
+        <item>KOM108</item>
+        <item>KUU101</item>
+        <item>KUU102</item>
+        <item>KUU106</item>
+        <item>PSI109</item>
+    </string-array>
+
+    <string-array name="data_name_matkul">
+        <item>Pengantar Ilmu Politik</item>
+        <item>Pengantar Ilmu Komputer</item>
+        <item>Statistika I</item>
+        <item>Pengantar Ilmu Komunikasi</item>
+        <item>Pengantar Sosiologi</item>
+        <item>Pancasila</item>
+        <item>Agama</item>
+        <item>Bahasa Inggris</item>
+        <item>Psikologi Umum</item>
+    </string-array>
+
+    <integer-array name="data_sks">
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>3</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
+
+    <integer-array name="data_grade">
+        <item>78</item>
+        <item>70</item>
+        <item>81</item>
+        <item>60</item>
+        <item>84</item>
+        <item>73</item>
+        <item>73</item>
+        <item>63</item>
+        <item>91</item>
+    </integer-array>
 </resources>

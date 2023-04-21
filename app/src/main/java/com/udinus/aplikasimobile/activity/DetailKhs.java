@@ -2,7 +2,9 @@ package com.udinus.aplikasimobile.activity;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +16,7 @@ import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.database.model.User;
 import com.udinus.aplikasimobile.databinding.ActivityDetailKhsBinding;
+import com.udinus.aplikasimobile.utils.KhsUtils;
 
 public class DetailKhs extends AppCompatActivity {
 
@@ -57,7 +60,46 @@ public class DetailKhs extends AppCompatActivity {
         // Membuat EditText edtCodeMatkul tidak dapat diubah
         binding.edtCodeMatkul.setEnabled(false);
         // Mengubah warna text pada EditText edtCodeMatkul dengan warna merah
-        binding.edtCodeMatkul.setTextColor(getColor(R.color.red_500));
+        binding.edtCodeMatkul.setTextColor(getColor(R.color.red));
+
+        // Membuat EditText edtLetterGrade tidak dapat diubah
+        binding.edtLetterGrade.setEnabled(false);
+        // Mengubah warna text pada EditText edtLetterGrade dengan warna merah
+        binding.edtLetterGrade.setTextColor(getColor(R.color.red));
+
+        // Mengubah EditText edtLetterGrade jika text pada edtGrade berubah.
+        binding.edtGrade.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Memastikan inputan nilai angka benar
+                if(!s.toString().isEmpty()){
+                    double grade;
+                    try {
+                        grade = Double.parseDouble(binding.edtGrade.getText().toString().trim());
+                        if (grade < 0 || grade > 100) {
+                            binding.edtGrade.setError("Nilai harus di antara 0 dan 100");
+                            binding.btnSave.setEnabled(false);
+                            return;
+                        }
+                    } catch (NumberFormatException e) {
+                        binding.edtGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal");
+                        return;
+                    }
+                    // Memodifikasi letterGrade sesuai dengan grade yang dimasukan
+                    String letterGrade = KhsUtils.convertGradetoLetterGrade(grade);
+                    binding.edtLetterGrade.setText(letterGrade);
+                    binding.btnSave.setEnabled(true);
+                } else {
+                    binding.edtLetterGrade.setText("");
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
         // Saat Button save diklik menjalankan/memanggil method/function editKhs()
         binding.btnSave.setOnClickListener(v -> editKhs());

@@ -161,6 +161,7 @@
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
                 android:inputType="numberSigned"
+                android:maxLength="1"
                 android:minHeight="48dp" />
         </LinearLayout>
 
@@ -183,6 +184,7 @@
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
                 android:inputType="numberDecimal"
+                android:maxLength="3"
                 android:minHeight="48dp" />
         </LinearLayout>
 

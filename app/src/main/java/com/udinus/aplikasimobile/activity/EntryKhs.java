@@ -2,16 +2,20 @@ package com.udinus.aplikasimobile.activity;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.model.Khs;
 import com.udinus.aplikasimobile.database.model.User;
 import com.udinus.aplikasimobile.databinding.ActivityEntryKhsBinding;
+import com.udinus.aplikasimobile.utils.KhsUtils;
 
 public class EntryKhs extends AppCompatActivity {
 
@@ -39,6 +43,45 @@ public class EntryKhs extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
+
+        // Membuat EditText edtLetterGrade tidak dapat diubah
+        binding.edtLetterGrade.setEnabled(false);
+        // Mengubah warna text pada EditText edtLetterGrade dengan warna merah
+        binding.edtLetterGrade.setTextColor(getColor(R.color.red));
+
+        // Mengubah EditText edtLetterGrade jika text pada edtGrade berubah.
+        binding.edtGrade.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Memastikan inputan nilai angka benar
+                if(!s.toString().isEmpty()){
+                    double grade;
+                    try {
+                        grade = Double.parseDouble(binding.edtGrade.getText().toString().trim());
+                        if (grade < 0 || grade > 100) {
+                            binding.edtGrade.setError("Nilai harus di antara 0 dan 100");
+                            binding.btnSave.setEnabled(false);
+                            return;
+                        }
+                    } catch (NumberFormatException e) {
+                        binding.edtGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal");
+                        return;
+                    }
+                    // Memodifikasi letterGrade sesuai dengan grade yang dimasukan
+                    String letterGrade = KhsUtils.convertGradetoLetterGrade(grade);
+                    binding.edtLetterGrade.setText(letterGrade);
+                    binding.btnSave.setEnabled(true);
+                } else {
+                    binding.edtLetterGrade.setText("");
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
         // Saat Button save diklik menjalankan/memanggil method/function addKhs()
         binding.btnSave.setOnClickListener(v -> addKhs());
@@ -103,15 +146,6 @@ public class EntryKhs extends AppCompatActivity {
             return;
         }
 
-        // Memastikan inputan nilai angka benar
-        double grade;
-        try {
-            grade = Double.parseDouble(binding.edtGrade.getText().toString().trim());
-        } catch (NumberFormatException e) {
-            binding.edtGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal");
-            return;
-        }
-
         // Memastikan kode mata kuliah tidak ada pada database
         String codeMatkul = binding.edtCodeMatkul.getText().toString();
         if (khsDao.findKhsByCodeMatkul(codeMatkul) != null) {
@@ -126,7 +160,7 @@ public class EntryKhs extends AppCompatActivity {
         khs.setCodeMatkul(codeMatkul);
         khs.setNameMatkul(binding.edtNameMatkul.getText().toString());
         khs.setSks(sks);
-        khs.setGrade(grade);
+        khs.setGrade(Double.valueOf(binding.edtGrade.getText().toString()));
         khs.setLetterGrade(binding.edtLetterGrade.getText().toString());
         khs.setPredicate(binding.edtPredicate.getText().toString());
 
