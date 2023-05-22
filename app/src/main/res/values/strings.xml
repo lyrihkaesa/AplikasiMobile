@@ -34,8 +34,8 @@
     <string name="default_degree">S1</string>
     <string name="default_nim">A12.2020.</string>
 
-    <string name="dont_have_account">Belum punya akun ?</string>
-    <string name="have_account">Sudah punya akun ?</string>
+    <string name="dont_have_account">Belum punya akun?</string>
+    <string name="have_account">Sudah punya akun?</string>
 
     <string name="label_nim_or_username">NIM or Username</string>
 

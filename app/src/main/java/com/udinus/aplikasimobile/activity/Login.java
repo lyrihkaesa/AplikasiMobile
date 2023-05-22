@@ -46,14 +46,13 @@ public class Login extends AppCompatActivity {
         // Saat Button btnLogin diklik
         binding.btnLogin.setOnClickListener(v -> {
             // Pengecekan apakah EditText kosong atau tidak
-            if (TextUtils.isEmpty(binding.logNimOrUsername.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.logNimOrUsername.setError("NIM atau Username tidak boleh kosong!");
-                return;
-            }
             if (TextUtils.isEmpty(binding.logPassword.getText())) {
-                // Tampilkan pesan kesalahan pada TextInputLayout
                 binding.tilPassword.setError("Password tidak boleh kosong!");
+                binding.logPassword.requestFocus();
+            }
+            if (TextUtils.isEmpty(binding.logNimOrUsername.getText())) {
+                binding.tilNimOrUsername.setError("NIM atau Username tidak boleh kosong!");
+                binding.logNimOrUsername.requestFocus();
                 return;
             }
 
@@ -64,7 +63,8 @@ public class Login extends AppCompatActivity {
             // Pengecekan apakah user tidak ditemukan atau null
             if (user == null) {
                 // Jika user tidak ditemukan atau null menampilkan pesan kesalahan pada EditText
-                binding.logNimOrUsername.setError("NIM atau Username " + nimOrUsername + " tidak ditemukan!");
+                binding.tilNimOrUsername.setError("NIM atau Username " + nimOrUsername + " tidak ditemukan!");
+                binding.logNimOrUsername.requestFocus();
                 return;
             }
 
@@ -84,6 +84,7 @@ public class Login extends AppCompatActivity {
             } else {
                 // Jika tidak sama maka akan menampilkan pesan kesalahan pada TextInputLayout
                 binding.tilPassword.setError("Password anda salah!");
+                binding.logPassword.requestFocus();
             }
         });
 

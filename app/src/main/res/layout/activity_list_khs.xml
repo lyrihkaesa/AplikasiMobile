@@ -11,7 +11,7 @@
         android:id="@+id/title_khs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_border_blue"
+        android:background="@drawable/rounded_border_red"
         android:gravity="center_horizontal"
         android:text="@string/title_khs"
         android:textSize="24sp"
@@ -198,7 +198,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/rounded_border_blue">
+        android:background="@drawable/rounded_border_red">
 
         <TableLayout
             android:id="@+id/table_ipk"

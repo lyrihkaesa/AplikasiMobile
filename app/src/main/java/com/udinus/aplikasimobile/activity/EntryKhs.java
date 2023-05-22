@@ -44,6 +44,8 @@ public class EntryKhs extends AppCompatActivity {
         database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
+        binding.edtCodeMatkul.requestFocus();
+
         // Membuat EditText edtLetterGrade tidak dapat diubah
         binding.edtLetterGrade.setEnabled(false);
         // Mengubah warna text pada EditText edtLetterGrade dengan warna merah
@@ -60,20 +62,23 @@ public class EntryKhs extends AppCompatActivity {
                 if(!s.toString().isEmpty()){
                     double grade;
                     try {
-                        grade = Double.parseDouble(binding.edtGrade.getText().toString().trim());
+                        grade = Double.parseDouble(s.toString().trim());
                         if (grade < 0 || grade > 100) {
-                            binding.edtGrade.setError("Nilai harus di antara 0 dan 100");
+                            binding.tilGrade.setError("Nilai harus di antara 0 dan 100!");
                             binding.btnSave.setEnabled(false);
+                            binding.btnSave.setBackgroundColor(getColor(R.color.grey));
                             return;
                         }
                     } catch (NumberFormatException e) {
-                        binding.edtGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal");
+                        binding.tilGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal!");
                         return;
                     }
+                    binding.tilGrade.setError(null);
                     // Memodifikasi letterGrade sesuai dengan grade yang dimasukan
                     String letterGrade = KhsUtils.convertGradetoLetterGrade(grade);
                     binding.edtLetterGrade.setText(letterGrade);
                     binding.btnSave.setEnabled(true);
+                    binding.btnSave.setBackgroundColor(getColor(R.color.green));
                 } else {
                     binding.edtLetterGrade.setText("");
                 }
@@ -102,38 +107,27 @@ public class EntryKhs extends AppCompatActivity {
     private void addKhs() {
         // Pengecekan TextView tidak boleh kosong/empty
         if (TextUtils.isEmpty(binding.edtCodeMatkul.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtCodeMatkul.setError("Kode mata kuliah tidak boleh kosong");
-            return;
+            binding.tilCodeMatkul.setError("Kode mata kuliah tidak boleh kosong!");
         }
 
         if (TextUtils.isEmpty(binding.edtNameMatkul.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtNameMatkul.setError("Nama mata kuliah tidak boleh kosong");
-            return;
-        }
-
-        if (TextUtils.isEmpty(binding.edtGrade.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtGrade.setError("Nilai angka tidak boleh kosong");
-            return;
-        }
-
-        if (TextUtils.isEmpty(binding.edtLetterGrade.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtLetterGrade.setError("Nilai huruf tidak boleh kosong");
-            return;
+            binding.tilNameMatkul.setError("Nama mata kuliah tidak boleh kosong!");
         }
 
         if (TextUtils.isEmpty(binding.edtSks.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtSks.setError("SKS tidak boleh kosong");
-            return;
+            binding.tilSks.setError("SKS tidak boleh kosong!");
+        }
+
+        if (TextUtils.isEmpty(binding.edtGrade.getText())) {
+            binding.tilGrade.setError("Nilai angka tidak boleh kosong!");
+        }
+
+        if (TextUtils.isEmpty(binding.edtLetterGrade.getText())) {
+            binding.tilLetterGrade.setError("Nilai huruf tidak boleh kosong!");
         }
 
         if (TextUtils.isEmpty(binding.edtPredicate.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtPredicate.setError("Predikat tidak boleh kosong");
+            binding.tilPredicate.setError("Predikat tidak boleh kosong!");
             return;
         }
 
@@ -142,14 +136,14 @@ public class EntryKhs extends AppCompatActivity {
         try {
             sks = Integer.parseInt(binding.edtSks.getText().toString().trim());
         } catch (NumberFormatException e) {
-            binding.edtSks.setError("SKS harus diisi dengan angka bulat");
+            binding.tilSks.setError("SKS harus diisi dengan angka bulat!");
             return;
         }
 
         // Memastikan kode mata kuliah tidak ada pada database
         String codeMatkul = binding.edtCodeMatkul.getText().toString();
         if (khsDao.findKhsByCodeMatkul(codeMatkul) != null) {
-            binding.edtCodeMatkul.setError("Kode matkul sudah ada pada database!");
+            binding.tilCodeMatkul.setError("Kode matkul sudah ada pada database!");
             return;
         }
 

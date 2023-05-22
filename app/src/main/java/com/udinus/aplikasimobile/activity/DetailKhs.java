@@ -46,6 +46,8 @@ public class DetailKhs extends AppCompatActivity {
         database = databaseHelper.getWritableDatabase();
         khsDao = new KhsDao(database);
 
+        binding.edtNameMatkul.requestFocus();
+
         // Mengambil/mendapatkan data khs yang dirim dari activity sebelumnya dengan key "key_khs"
         khs = getIntent().getParcelableExtra("key_khs");
 
@@ -72,30 +74,35 @@ public class DetailKhs extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Memastikan inputan nilai angka benar
-                if(!s.toString().isEmpty()){
+                if (!s.toString().isEmpty()) {
                     double grade;
                     try {
-                        grade = Double.parseDouble(binding.edtGrade.getText().toString().trim());
+                        grade = Double.parseDouble(s.toString().trim());
                         if (grade < 0 || grade > 100) {
-                            binding.edtGrade.setError("Nilai harus di antara 0 dan 100");
+                            binding.tilGrade.setError("Nilai harus di antara 0 dan 100!");
                             binding.btnSave.setEnabled(false);
+                            binding.btnSave.setBackgroundColor(getColor(R.color.grey));
                             return;
                         }
                     } catch (NumberFormatException e) {
-                        binding.edtGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal");
+                        binding.tilGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal!");
                         return;
                     }
+                    binding.tilGrade.setError(null);
                     // Memodifikasi letterGrade sesuai dengan grade yang dimasukan
                     String letterGrade = KhsUtils.convertGradetoLetterGrade(grade);
                     binding.edtLetterGrade.setText(letterGrade);
                     binding.btnSave.setEnabled(true);
+                    binding.btnSave.setBackgroundColor(getColor(R.color.green));
                 } else {
                     binding.edtLetterGrade.setText("");
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -127,54 +134,34 @@ public class DetailKhs extends AppCompatActivity {
     private void editKhs() {
         // Pengecekan TextView tidak boleh kosong/empty
         if (TextUtils.isEmpty(binding.edtCodeMatkul.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtCodeMatkul.setError("Kode mata kuliah tidak boleh kosong");
-            return;
-        }
-
-        if (TextUtils.isEmpty(binding.edtNameMatkul.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtNameMatkul.setError("Nama mata kuliah tidak boleh kosong");
-            return;
-        }
-
-        if (TextUtils.isEmpty(binding.edtGrade.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtGrade.setError("Nilai angka tidak boleh kosong");
-            return;
-        }
-
-        if (TextUtils.isEmpty(binding.edtLetterGrade.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtLetterGrade.setError("Nilai huruf tidak boleh kosong");
-            return;
+            binding.tilCodeMatkul.setError("Kode mata kuliah tidak boleh kosong!");
         }
 
         if (TextUtils.isEmpty(binding.edtSks.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtSks.setError("SKS tidak boleh kosong");
-            return;
+            binding.tilSks.setError("SKS tidak boleh kosong!");
+        }
+
+        if (TextUtils.isEmpty(binding.edtNameMatkul.getText())) {
+            binding.tilNameMatkul.setError("Nama mata kuliah tidak boleh kosong!");
+        }
+
+        if (TextUtils.isEmpty(binding.edtGrade.getText())) {
+            binding.tilGrade.setError("Nilai angka tidak boleh kosong!");
+        }
+
+        if (TextUtils.isEmpty(binding.edtLetterGrade.getText())) {
+            binding.tilLetterGrade.setError("Nilai huruf tidak boleh kosong!");
         }
 
         if (TextUtils.isEmpty(binding.edtPredicate.getText())) {
-            // Tampilkan pesan kesalahan pada EditText
-            binding.edtPredicate.setError("Predikat tidak boleh kosong");
-            return;
+            binding.tilPredicate.setError("Predikat tidak boleh kosong!");
         }
 
         int sks;
         try {
             sks = Integer.parseInt(binding.edtSks.getText().toString().trim());
         } catch (NumberFormatException e) {
-            binding.edtSks.setError("SKS harus diisi dengan angka bulat");
-            return;
-        }
-
-        double grade;
-        try {
-            grade = Double.parseDouble(binding.edtGrade.getText().toString().trim());
-        } catch (NumberFormatException e) {
-            binding.edtGrade.setError("Nilai angka harus diisi dengan angka bulat/desimal");
+            binding.tilSks.setError("SKS harus diisi dengan angka bulat!");
             return;
         }
 
@@ -185,7 +172,7 @@ public class DetailKhs extends AppCompatActivity {
         khs.setCodeMatkul(binding.edtCodeMatkul.getText().toString());
         khs.setNameMatkul(binding.edtNameMatkul.getText().toString());
         khs.setSks(sks);
-        khs.setGrade(grade);
+        khs.setGrade(Double.valueOf(binding.edtGrade.getText().toString()));
         khs.setLetterGrade(binding.edtLetterGrade.getText().toString());
         khs.setPredicate(binding.edtPredicate.getText().toString());
 
@@ -200,9 +187,12 @@ public class DetailKhs extends AppCompatActivity {
     private AlertDialog AskOption() {
         return new AlertDialog.Builder(this)
                 // set message, title, and icon
-                .setTitle("Hapus").setMessage("Apakah anda ingin menghapus " + khs.getNameMatkul() + "?").setIcon(R.drawable.round_delete_24).setPositiveButton("Hapus", (dialog, whichButton) -> {
+                .setTitle("Hapus")
+                .setMessage("Apakah anda ingin menghapus " + khs.getNameMatkul() + "?")
+                .setIcon(R.drawable.round_delete_24)
+                .setPositiveButton("Hapus", (dialog, whichButton) -> {
                     // Jika "hapus" diklik maka menjalankan kode debawah ini
-                    if (khsDao.delete(binding.edtCodeMatkul.getText().toString()) > 0) {
+                    if (khsDao.delete(khs.getCodeMatkul()) > 0) {
                         Toast.makeText(this, "Berhasil menghapus mata kuliah " + khs.getNameMatkul(), Toast.LENGTH_SHORT).show();
                     }
                     dialog.dismiss();

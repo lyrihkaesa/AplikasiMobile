@@ -58,73 +58,59 @@ public class Register extends AppCompatActivity {
 
         // Saat Button btnRegister diklik
         binding.btnRegister.setOnClickListener(v -> {
-            // Pengecekan apakah EditText kosong atau tidak
+            // Pengecekan apakah TextInputEditText kosong atau tidak
             if (TextUtils.isEmpty(binding.regUsername.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.regUsername.setError("Username harus diisi!");
-                return;
+                binding.tilUsername.setError("Username harus diisi!");
             }
 
             if (TextUtils.isEmpty(binding.regNim.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.regNim.setError("NIM harus diisi!");
-                return;
+                binding.tilNim.setError("NIM harus diisi!");
             }
 
             if (TextUtils.isEmpty(binding.regName.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.regName.setError("Nama harus diisi!");
-                return;
+                binding.tilName.setError("Nama harus diisi!");
             }
 
             if (TextUtils.isEmpty(binding.regEmail.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.regEmail.setError("Email harus diisi!");
-                return;
+                binding.tilEmail.setError("Email harus diisi!");
             }
 
             if (TextUtils.isEmpty(binding.regMajor.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.regMajor.setError("Jurusan harus diisi!");
-                return;
+                binding.tilMajor.setError("Jurusan harus diisi!");
             }
 
             if (TextUtils.isEmpty(binding.regDegree.getText())) {
-                // Tampilkan pesan kesalahan pada EditText
-                binding.regDegree.setError("Gelar harus diisi!");
-                return;
+                binding.tilDegree.setError("Gelar harus diisi!");
             }
 
             if (TextUtils.isEmpty(binding.regPassword.getText())) {
-                // Tampilkan pesan kesalahan pada TextInputLayout
                 binding.tilPassword.setError("Password harus diisi!");
-                return;
             }
 
-            if(TextUtils.isEmpty(binding.regConfirmPassword.getText())){
-                // Tampilkan pesan kesalahan pada TextInputLayout
+            if (TextUtils.isEmpty(binding.regConfirmPassword.getText())) {
                 binding.tilConfirmPassword.setError("Confirm password harus diisi!");
-                return;
             }
 
             // Pengecekan apakah EditText regConfirmPassword isinya sama dengan EditText regPassword
             if (!binding.regConfirmPassword.getText().toString().equals(binding.regPassword.getText().toString())) {
-                // Tampilkan pesan kesalahan pada TextInputLayout
                 binding.tilConfirmPassword.setError("Password dan Confirm Password harus sama!");
+                binding.regConfirmPassword.requestFocus();
                 return;
             }
 
             // Memastikan username belum dibuat pada database
             String username = binding.regUsername.getText().toString();
             if (userDao.findUserByNimOrUsername(username) != null) {
-                binding.regUsername.setError("Username sudah ada!");
+                binding.tilUsername.setError("Username sudah ada!");
+                binding.regUsername.requestFocus();
                 return;
             }
 
             // Memastikan nim belum dibuat pada database
             String nim = binding.regNim.getText().toString();
             if (userDao.findUserByNimOrUsername(nim) != null && mahasiswaDao.findMahasiswaByNim(nim) != null) {
-                binding.regNim.setError("NIM sudah ada!");
+                binding.tilNim.setError("NIM sudah ada!");
+                binding.regNim.requestFocus();
                 return;
             }
 
@@ -149,7 +135,7 @@ public class Register extends AppCompatActivity {
             if (userDao.insert(user) > 0 && mahasiswaDao.insert(mahasiswa) > 0) {
                 Toast.makeText(this, mahasiswa.getName() + " sukses mendaftarkan", Toast.LENGTH_SHORT).show();
                 // Jika berhasil maka pindah ke activity Login
-                startActivity(new Intent(Register.this, Login.class));
+                finish();
             }
         });
 

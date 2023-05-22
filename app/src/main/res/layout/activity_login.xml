@@ -24,13 +24,20 @@
         android:labelFor="@id/log_nim_or_username"
         android:text="@string/label_nim_or_username" />
 
-    <EditText
-        android:id="@+id/log_nim_or_username"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_nim_or_username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:minHeight="48dp" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/log_nim_or_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:minHeight="48dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/label_password"
@@ -44,14 +51,12 @@
         android:id="@+id/til_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/log_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:inputType="textPassword"
             android:minHeight="48dp" />
     </com.google.android.material.textfield.TextInputLayout>
