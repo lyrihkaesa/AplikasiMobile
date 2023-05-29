@@ -9,7 +9,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Barang implements Parcelable {
-
+    private String key;
     private String code;
     private String name;
     private String satuan;
@@ -17,6 +17,14 @@ public class Barang implements Parcelable {
 
     public Barang() {
 
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getCode() {
@@ -63,6 +71,7 @@ public class Barang implements Parcelable {
         this.name = in.readString();
         this.satuan = in.readString();
         this.price = in.readDouble();
+        this.key = in.readString();
     }
 
     public static final Creator<Barang> CREATOR = new Creator<Barang>() {
@@ -88,5 +97,6 @@ public class Barang implements Parcelable {
         parcel.writeString(this.name);
         parcel.writeString(this.satuan);
         parcel.writeDouble(this.price);
+        parcel.writeString(this.key);
     }
 }

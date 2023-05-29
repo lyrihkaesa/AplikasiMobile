@@ -1,13 +1,13 @@
 package com.udinus.aplikasimobile.activity;
 
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.udinus.aplikasimobile.database.DatabaseHelper;
-import com.udinus.aplikasimobile.database.dao.BarangDao;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.udinus.aplikasimobile.database.model.Barang;
 import com.udinus.aplikasimobile.databinding.ActivityEntryBarangBinding;
 
@@ -15,13 +15,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class EntryBarang extends AppCompatActivity {
+    private DatabaseReference databaseRef;
     ActivityEntryBarangBinding binding;
-    DatabaseHelper databaseHelper;
-    private BarangDao barangDao;
-
-    public EntryBarang() {
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +27,8 @@ public class EntryBarang extends AppCompatActivity {
         // Mengubah judul yang ada pada App Bar
         Objects.requireNonNull(getSupportActionBar()).setTitle("Menambahkan Data Barang");
 
-        databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        barangDao = new BarangDao(database);
-
+        // Inisialisasi DatabaseReference
+        databaseRef = FirebaseDatabase.getInstance().getReference("barang");
 
         UUID uuid = UUID.randomUUID();
         String randomUUID8Char = uuid.toString().replaceAll("-", "").substring(0, 8);
@@ -43,31 +36,71 @@ public class EntryBarang extends AppCompatActivity {
 
         binding.btnSimpan.setOnClickListener(view -> insertBarang());
 
-        binding.btnBatal.setOnClickListener(view -> batal());
+        binding.btnBatal.setOnClickListener(view -> finish());
     }
 
     private void insertBarang() {
+        String kode = binding.edtKode.getText().toString().trim();
+        String nama = binding.edtNama.getText().toString().trim();
+        String satuan = binding.edtSatuan.getText().toString().trim();
+        String hargaText = binding.edtHarga.getText().toString().trim();
+
+        if (TextUtils.isEmpty(kode)) {
+            binding.edtKode.setError("Isi kode barang");
+            binding.edtKode.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(nama)) {
+            binding.edtNama.setError("Isi nama barang");
+            binding.edtNama.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(satuan)) {
+            binding.edtSatuan.setError("Isi satuan barang");
+            binding.edtSatuan.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(hargaText)) {
+            binding.edtHarga.setError("Isi harga barang");
+            binding.edtHarga.requestFocus();
+            return;
+        }
+
+        double harga = Double.parseDouble(hargaText);
+
         // Membuat obyek barang/Barang
         Barang barang = new Barang();
+        barang.setCode(kode);
+        barang.setName(nama);
+        barang.setSatuan(satuan);
+        barang.setPrice(harga);
 
-        // Set/Input/Masukan nilai ke obyek barang/Barang
-        barang.setCode(binding.edtKode.getText().toString());
-        barang.setName(binding.edtNama.getText().toString());
-        barang.setSatuan(binding.edtSatuan.getText().toString());
-        barang.setPrice(Double.valueOf(binding.edtHarga.getText().toString()));
+        // Mengambil referensi baru untuk barang di Firebase Realtime Database
+        DatabaseReference newBarangRef = databaseRef.push();
+        String barangKey = newBarangRef.getKey();
 
-        // insert obyek barang yang sudah ada nilainya diatas ke database
-        long result = barangDao.insert(barang);
-        if(result > 0){
-            // Pindah dari halaman EntryBarang/InputBarang ke MainActivity/DaftarBarang
-            Intent intent = new Intent(EntryBarang.this, ListBarang.class);
-            startActivity(intent);
+        if (barangKey != null) {
+            // Menyimpan obyek barang ke Firebase Realtime Database
+            newBarangRef.setValue(barang)
+                    .addOnSuccessListener(aVoid -> {
+                        // Menampilkan pesan berhasil dan kembali ke activity sebelumnya
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        // Menampilkan pesan kesalahan jika gagal menyimpan ke database
+                        showError("Gagal menyimpan barang: " + e.getMessage());
+                    });
+        } else {
+            // Menampilkan pesan kesalahan jika gagal mendapatkan kunci barang
+            showError("Gagal mendapatkan kunci barang");
         }
     }
-
-    private void batal() {
-        // Pindah dari halaman EntryBarang/InputBarang ke MainActivity/DaftarBarang
-        Intent intent = new Intent(EntryBarang.this, ListBarang.class);
-        startActivity(intent);
+    private void showError(String errorMessage) {
+        // Menampilkan AlertDialog untuk menampilkan pesan kesalahan
+        new AlertDialog.Builder(this)
+                .setTitle("Error")
+                .setMessage(errorMessage)
+                .setPositiveButton("OK", null)
+                .show();
     }
 }

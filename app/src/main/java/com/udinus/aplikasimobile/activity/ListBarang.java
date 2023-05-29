@@ -1,15 +1,20 @@
 package com.udinus.aplikasimobile.activity;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.udinus.aplikasimobile.adapter.BarangRvAdapter;
-import com.udinus.aplikasimobile.database.DatabaseHelper;
-import com.udinus.aplikasimobile.database.dao.BarangDao;
 import com.udinus.aplikasimobile.database.model.Barang;
 import com.udinus.aplikasimobile.databinding.ActivityListBarangBinding;
 
@@ -17,8 +22,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ListBarang extends AppCompatActivity {
-    DatabaseHelper databaseHelper;
+    private DatabaseReference databaseRef;
     private final ArrayList<Barang> barangArrayList = new ArrayList<>();
+    private ProgressDialog progressDialog;
+    private  BarangRvAdapter barangRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +36,18 @@ public class ListBarang extends AppCompatActivity {
         // Mengubah judul yang ada pada App Bar
         Objects.requireNonNull(getSupportActionBar()).setTitle("Daftar Barang");
 
-        // Inisialisasi database dan DAO
-        databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        BarangDao barangDao = new BarangDao(database);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
+
+        // Inisialisasi DatabaseReference
+        databaseRef = FirebaseDatabase.getInstance().getReference("barang");
 
         binding.rvBarang.setHasFixedSize(true);
         // Mengatur LayoutManager pada RecycleView Barang dengan LinearLayoutManager
         binding.rvBarang.setLayoutManager(new LinearLayoutManager(this));
-        barangArrayList.clear();
-        barangArrayList.addAll(barangDao.getAll());
         // Deklarasi Adapter RecyclerView Barang
-        BarangRvAdapter barangRecyclerViewAdapter = new BarangRvAdapter(barangArrayList);
+        barangRecyclerViewAdapter = new BarangRvAdapter(barangArrayList);
 
         barangRecyclerViewAdapter.setOnItemClickCallback(barang -> {
             Intent intentDetail = new Intent(ListBarang.this, EditBarang.class);
@@ -55,6 +62,44 @@ public class ListBarang extends AppCompatActivity {
         binding.fab.setOnClickListener(view -> {
             Intent intent = new Intent(ListBarang.this, EntryBarang.class);
             startActivity(intent);
+        });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Menampilkan ProgressDialog saat operasi sedang berjalan
+        progressDialog.show();
+        // Mengambil daftar barang dari Firebase Realtime Database
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                barangArrayList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Barang barang = snapshot.getValue(Barang.class);
+                    if (barang != null) {
+                        barang.setKey(snapshot.getKey());
+                        barangArrayList.add(barang);
+                    }
+                }
+                // Memberitahu adapter bahwa data telah berubah
+                barangRecyclerViewAdapter.notifyDataSetChanged();
+
+                // Menyembunyikan ProgressDialog setelah operasi selesai
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Menangani kesalahan jika terjadi
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListBarang.this);
+                builder.setTitle("Error")
+                        .setMessage("Error: " + databaseError.getMessage())
+                        .setPositiveButton("Refresh", (dialog, which) -> {
+                            // Memperbarui aktivitas saat tombol Refresh diklik
+                            recreate();
+                        })
+                        .show();
+            }
         });
     }
 }
