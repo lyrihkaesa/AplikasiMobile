@@ -12,10 +12,13 @@
         android:theme="@style/Theme.AplikasiMobile"
         tools:targetApi="31">
         <activity
-            android:name=".activity.Register"
+            android:name=".activity.EditBarang"
             android:exported="false" />
         <activity
-            android:name=".activity.Login"
+            android:name=".activity.EntryBarang"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ListBarang"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.Register"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Login"
+            android:exported="false" />
 
         <activity
             android:name=".activity.DetailKhs"
@@ -32,7 +41,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.ListKhs"
-            android:exported="false"/>
+            android:exported="true" />
+
     </application>
 
 </manifest>

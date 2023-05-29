@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.udinus.aplikasimobile.database.dao.BarangDao;
 import com.udinus.aplikasimobile.database.dao.KhsDao;
 import com.udinus.aplikasimobile.database.dao.MahasiswaDao;
 import com.udinus.aplikasimobile.database.dao.UserDao;
@@ -46,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         KhsDao.createTable(sqLiteDatabase);
         UserDao.createTable(sqLiteDatabase);
         MahasiswaDao.createTable(sqLiteDatabase);
+        BarangDao.createTable(sqLiteDatabase);
     }
 
     /**
@@ -61,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         KhsDao.dropTable(sqLiteDatabase);
         UserDao.dropTable(sqLiteDatabase);
         MahasiswaDao.dropTable(sqLiteDatabase);
+        BarangDao.dropTable(sqLiteDatabase);
         onCreate(sqLiteDatabase);
     }
 }
