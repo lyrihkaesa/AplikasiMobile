@@ -117,13 +117,13 @@
     <string name="desc_author">Mahasiswa jurusan Sistem Informasi di Universitas Dian Nuswantoro. Yang memiliki hobbi bermain permainan Toram Online, yang berkencimbung di dunia Software Engginer khususnya Back-End dan dunia Jaringan Komputer RT/RW Net seperti Mikrotik.</string>
     <string name="about">Tentang</string>
     <string name="share">Bagikan</string>
-    <string name="label_kode">Kode</string>
+    <string name="label_code">Kode</string>
     <string name="hint_kode">Isi dengan kode barang!</string>
-    <string name="label_nama">Nama</string>
+    <string name="label_name">Nama</string>
     <string name="hint_nama">Isi dengan nama barang!</string>
     <string name="label_satuan">Satuan</string>
     <string name="hint_satuan">Isi dengan Satuan barang!</string>
-    <string name="label_harga">Harga</string>
+    <string name="label_price">Harga</string>
     <string name="hint_harga">Isi dengan harga barang!</string>
     <string name="text_simpan">Simpan</string>
     <string name="text_batal">Batal</string>
@@ -131,6 +131,15 @@
     <string name="img_url">Image Url</string>
     <string name="update">Simpan Edit</string>
     <string name="text_hapus">Hapus</string>
+    <string name="entry_product">Tambah Barang</string>
+    <string name="label_amount">Jumlah</string>
+    <string name="label_expired_date">Tanggal Kadaluarsa</string>
+    <string name="label_packaging">Kemasan</string>
+    <string name="label_type">Tipe</string>
+    <string name="tv_date">dd/MM/yyyy</string>
+    <string name="label_pick_date">pick date</string>
+
+    <string name="format_date">%d-%02d-%d</string>
     <string-array name="data_name">
         <item>Sumagesic 4 Tablet</item>
         <item>Decolgen 4 Tablet</item>

@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/label_kode"
+                android:text="@string/label_code"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/label_nama"
+                android:text="@string/label_name"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/label_harga"
+                android:text="@string/label_price"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
