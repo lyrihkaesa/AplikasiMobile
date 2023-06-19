@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.activity;
+package com.udinus.aplikasimobile.activity.product;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import com.udinus.aplikasimobile.databinding.ActivityEditBarangBinding;
 
 import java.util.Objects;
 
-public class EditBarang extends AppCompatActivity {
+public class EditProduct extends AppCompatActivity {
     ActivityEditBarangBinding binding;
     private DatabaseReference databaseRef;
     private Barang barang;

@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.activity;
+package com.udinus.aplikasimobile.activity.khs;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

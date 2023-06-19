@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.activity;
+package com.udinus.aplikasimobile.activity.medicine;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;

@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.activity;
+package com.udinus.aplikasimobile.activity.auth;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;

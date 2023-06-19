@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.activity;
+package com.udinus.aplikasimobile.activity.auth;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.udinus.aplikasimobile.activity.khs.ListKhs;
 import com.udinus.aplikasimobile.database.DatabaseHelper;
 import com.udinus.aplikasimobile.database.dao.MahasiswaDao;
 import com.udinus.aplikasimobile.database.dao.UserDao;

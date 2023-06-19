@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.activity;
+package com.udinus.aplikasimobile.activity.product;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import com.udinus.aplikasimobile.databinding.ActivityEntryBarangBinding;
 import java.util.Objects;
 import java.util.UUID;
 
-public class EntryBarang extends AppCompatActivity {
+public class EntryProduct extends AppCompatActivity {
     private DatabaseReference databaseRef;
     ActivityEntryBarangBinding binding;
 
