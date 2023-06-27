@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.udinus.aplikasimobile.database.model.Khs;
+import com.udinus.aplikasimobile.repository.model.Khs;
 import com.udinus.aplikasimobile.databinding.ItemRowKhsBinding;
 
 import java.text.DecimalFormat;

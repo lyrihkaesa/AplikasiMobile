@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.database.model;
+package com.udinus.aplikasimobile.repository.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

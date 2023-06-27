@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.udinus.aplikasimobile.database.model.Medicine;
+import com.udinus.aplikasimobile.repository.model.Medicine;
 import com.udinus.aplikasimobile.databinding.ItemRowMedicineBinding;
 import com.udinus.aplikasimobile.utils.AppUtils;
 

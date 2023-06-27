@@ -10,18 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.adapter.KhsRvAdapter;
-import com.udinus.aplikasimobile.database.DatabaseHelper;
-import com.udinus.aplikasimobile.database.dao.KhsDao;
-import com.udinus.aplikasimobile.database.model.Khs;
-import com.udinus.aplikasimobile.database.model.User;
-import com.udinus.aplikasimobile.databinding.ActivityListKhsBinding;
+import com.udinus.aplikasimobile.databinding.ActivityKhsListBinding;
+import com.udinus.aplikasimobile.repository.DatabaseHelper;
+import com.udinus.aplikasimobile.repository.dao.KhsDao;
+import com.udinus.aplikasimobile.repository.model.Khs;
+import com.udinus.aplikasimobile.repository.model.User;
 import com.udinus.aplikasimobile.utils.KhsUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ListKhs extends AppCompatActivity {
-    ActivityListKhsBinding binding;
+public class KhsList extends AppCompatActivity {
+    ActivityKhsListBinding binding;
     DatabaseHelper databaseHelper;
     private SQLiteDatabase database;
     private KhsDao khsDao;
@@ -34,7 +34,7 @@ public class ListKhs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Mengganti setContentView dengan binding
-        binding = ActivityListKhsBinding.inflate(getLayoutInflater());
+        binding = ActivityKhsListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Mengambil/mendapatkan data user yang dikirim dari activity sebelumnya dengan key "key_user"
@@ -78,7 +78,7 @@ public class ListKhs extends AppCompatActivity {
 
         // Saat salah satu item diklik pindah ke activity DetailKhs, dengan membawa data: Khs
         khsRvAdapter.setOnItemClickCallback(khs -> {
-            Intent intentDetail = new Intent(ListKhs.this, DetailKhs.class);
+            Intent intentDetail = new Intent(KhsList.this, KhsEdit.class);
             // Mengirimkan data khs ke activity DetailKhs dengan key "key_khs"
             intentDetail.putExtra("key_khs", khs);
             // Mengirimkan data user ke activity DetailKhs dengan key "key_user"
@@ -88,7 +88,7 @@ public class ListKhs extends AppCompatActivity {
 
         // Saat ImageButton btnEntryKhs diklik pindah activity EntryKhs, dengan membawa data: User
         binding.btnEntryKhs.setOnClickListener(v -> {
-            Intent intent = new Intent(ListKhs.this, EntryKhs.class);
+            Intent intent = new Intent(KhsList.this, KhsEntry.class);
             // Mengirimkan data user ke activity EntryKhs dengan key "key_user"
             intent.putExtra("key_user", user);
             startActivity(intent);

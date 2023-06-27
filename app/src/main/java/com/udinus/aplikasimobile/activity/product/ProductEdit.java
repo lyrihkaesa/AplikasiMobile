@@ -8,20 +8,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.udinus.aplikasimobile.R;
-import com.udinus.aplikasimobile.database.model.Barang;
-import com.udinus.aplikasimobile.databinding.ActivityEditBarangBinding;
+import com.udinus.aplikasimobile.databinding.ActivityProductEditBinding;
+import com.udinus.aplikasimobile.repository.model.Barang;
 
 import java.util.Objects;
 
-public class EditProduct extends AppCompatActivity {
-    ActivityEditBarangBinding binding;
+public class ProductEdit extends AppCompatActivity {
+    ActivityProductEditBinding binding;
     private DatabaseReference databaseRef;
     private Barang barang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityEditBarangBinding.inflate(getLayoutInflater());
+        binding = ActivityProductEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Mengubah judul yang ada pada App Bar

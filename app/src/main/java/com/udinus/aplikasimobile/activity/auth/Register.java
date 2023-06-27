@@ -9,15 +9,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.udinus.aplikasimobile.R;
-import com.udinus.aplikasimobile.database.DatabaseHelper;
-import com.udinus.aplikasimobile.database.dao.MahasiswaDao;
-import com.udinus.aplikasimobile.database.dao.UserDao;
-import com.udinus.aplikasimobile.database.model.Mahasiswa;
-import com.udinus.aplikasimobile.database.model.User;
-import com.udinus.aplikasimobile.databinding.ActivityRegisterBinding;
+import com.udinus.aplikasimobile.databinding.ActivityAuthRegisterBinding;
+import com.udinus.aplikasimobile.repository.DatabaseHelper;
+import com.udinus.aplikasimobile.repository.dao.MahasiswaDao;
+import com.udinus.aplikasimobile.repository.dao.UserDao;
+import com.udinus.aplikasimobile.repository.model.Mahasiswa;
+import com.udinus.aplikasimobile.repository.model.User;
 
 public class Register extends AppCompatActivity {
-    private ActivityRegisterBinding binding;
+    private ActivityAuthRegisterBinding binding;
     DatabaseHelper databaseHelper;
     SQLiteDatabase database;
     private UserDao userDao;
@@ -27,7 +27,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Mengganti setContentView dengan binding
-        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        binding = ActivityAuthRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Inisialisasi database dan DAO

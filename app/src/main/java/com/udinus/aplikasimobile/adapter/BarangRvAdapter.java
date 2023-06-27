@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.udinus.aplikasimobile.database.model.Barang;
-import com.udinus.aplikasimobile.databinding.ItemRowBarangBinding;
+import com.udinus.aplikasimobile.databinding.ItemRowProductBinding;
+import com.udinus.aplikasimobile.repository.model.Barang;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class BarangRvAdapter extends RecyclerView.Adapter<BarangRvAdapter.Barang
     @NonNull
     @Override
     public BarangRvHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemRowBarangBinding binding = ItemRowBarangBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ItemRowProductBinding binding = ItemRowProductBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new BarangRvAdapter.BarangRvHolder(binding);
     }
 
@@ -56,9 +56,9 @@ public class BarangRvAdapter extends RecyclerView.Adapter<BarangRvAdapter.Barang
     // Class Holder untuk List Barang RecyclerView
     public static class BarangRvHolder extends RecyclerView.ViewHolder {
 
-        ItemRowBarangBinding binding;
+        ItemRowProductBinding binding;
 
-        public BarangRvHolder(@NonNull ItemRowBarangBinding binding) {
+        public BarangRvHolder(@NonNull ItemRowProductBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

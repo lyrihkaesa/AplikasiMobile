@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.khs.DetailKhs">
+    tools:context=".activity.khs.KhsEntry">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -307,18 +307,6 @@
                 android:layout_marginHorizontal="10dp"
                 android:backgroundTint="@color/yellow"
                 android:text="@string/cancel"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                tools:ignore="TextContrastCheck" />
-
-            <Button
-                android:id="@+id/btn_delete"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:backgroundTint="@color/red"
-                android:text="@string/delete"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 tools:ignore="TextContrastCheck" />

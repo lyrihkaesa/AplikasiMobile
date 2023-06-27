@@ -1,8 +1,6 @@
 package com.udinus.aplikasimobile.utils;
 
-import android.util.Log;
-
-import com.udinus.aplikasimobile.database.model.Khs;
+import com.udinus.aplikasimobile.repository.model.Khs;
 
 import java.util.ArrayList;
 

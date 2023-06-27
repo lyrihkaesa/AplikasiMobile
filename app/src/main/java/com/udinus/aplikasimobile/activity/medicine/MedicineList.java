@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.activity.product;
+package com.udinus.aplikasimobile.activity.medicine;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -14,53 +14,53 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.udinus.aplikasimobile.adapter.BarangRvAdapter;
-import com.udinus.aplikasimobile.database.model.Barang;
-import com.udinus.aplikasimobile.databinding.ActivityListBarangBinding;
+import com.udinus.aplikasimobile.adapter.MedicineRvAdapter;
+import com.udinus.aplikasimobile.databinding.ActivityMedicineListBinding;
+import com.udinus.aplikasimobile.repository.model.Medicine;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ListProduct extends AppCompatActivity {
+public class MedicineList extends AppCompatActivity {
     private DatabaseReference databaseRef;
-    private final ArrayList<Barang> barangArrayList = new ArrayList<>();
+    private final ArrayList<Medicine> medicineArrayList = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private  BarangRvAdapter barangRecyclerViewAdapter;
+    private  MedicineRvAdapter medicineRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityListBarangBinding binding = ActivityListBarangBinding.inflate(getLayoutInflater());
+        ActivityMedicineListBinding binding = ActivityMedicineListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Mengubah judul yang ada pada App Bar
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Daftar Barang");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Daftar Obat");
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
 
         // Inisialisasi DatabaseReference
-        databaseRef = FirebaseDatabase.getInstance().getReference("barang");
+        databaseRef = FirebaseDatabase.getInstance().getReference("medicine");
 
-        binding.rvBarang.setHasFixedSize(true);
-        // Mengatur LayoutManager pada RecycleView Barang dengan LinearLayoutManager
-        binding.rvBarang.setLayoutManager(new LinearLayoutManager(this));
-        // Deklarasi Adapter RecyclerView Barang
-        barangRecyclerViewAdapter = new BarangRvAdapter(barangArrayList);
+        binding.rvMedicine.setHasFixedSize(true);
+        // Mengatur LayoutManager pada RecycleView Medicine dengan LinearLayoutManager
+        binding.rvMedicine.setLayoutManager(new LinearLayoutManager(this));
+        // Deklarasi Adapter RecyclerView Medicine
+        medicineRecyclerViewAdapter = new MedicineRvAdapter(medicineArrayList);
 
-        barangRecyclerViewAdapter.setOnItemClickCallback(barang -> {
-            Intent intentDetail = new Intent(ListProduct.this, EditProduct.class);
+        medicineRecyclerViewAdapter.setOnItemClickCallback(medicine -> {
+            Intent intentDetail = new Intent(MedicineList.this, MedicineEdit.class);
             // Mengirimkan data khs ke activity DetailKhs dengan key "key_khs"
-            intentDetail.putExtra("key_barang", barang);
+            intentDetail.putExtra("key_medicine", medicine);
             startActivity(intentDetail);
         });
         // Menghubungkan RecyclerView dengan Adapter diatas.
-        binding.rvBarang.setAdapter(barangRecyclerViewAdapter);
+        binding.rvMedicine.setAdapter(medicineRecyclerViewAdapter);
 
-        // Tombol/Button yang melayang untuk navigasi ke EntryPage/Halaman Input Barang
+        // Tombol/Button yang melayang untuk navigasi ke EntryPage/Halaman Input Medicine
         binding.fab.setOnClickListener(view -> {
-            Intent intent = new Intent(ListProduct.this, EntryProduct.class);
+            Intent intent = new Intent(MedicineList.this, MedicineEntry.class);
             startActivity(intent);
         });
     }
@@ -69,20 +69,20 @@ public class ListProduct extends AppCompatActivity {
         super.onStart();
         // Menampilkan ProgressDialog saat operasi sedang berjalan
         progressDialog.show();
-        // Mengambil daftar barang dari Firebase Realtime Database
+        // Mengambil daftar medicine dari Firebase Realtime Database
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                barangArrayList.clear();
+                medicineArrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Barang barang = snapshot.getValue(Barang.class);
-                    if (barang != null) {
-                        barang.setKey(snapshot.getKey());
-                        barangArrayList.add(barang);
+                    Medicine medicine = snapshot.getValue(Medicine.class);
+                    if (medicine != null) {
+                        medicine.setKey(snapshot.getKey());
+                        medicineArrayList.add(medicine);
                     }
                 }
                 // Memberitahu adapter bahwa data telah berubah
-                barangRecyclerViewAdapter.notifyDataSetChanged();
+                medicineRecyclerViewAdapter.notifyDataSetChanged();
 
                 // Menyembunyikan ProgressDialog setelah operasi selesai
                 progressDialog.dismiss();
@@ -91,7 +91,7 @@ public class ListProduct extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Menangani kesalahan jika terjadi
-                AlertDialog.Builder builder = new AlertDialog.Builder(ListProduct.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MedicineList.this);
                 builder.setTitle("Error")
                         .setMessage("Error: " + databaseError.getMessage())
                         .setPositiveButton("Refresh", (dialog, which) -> {

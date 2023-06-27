@@ -1,10 +1,10 @@
-package com.udinus.aplikasimobile.database.dao;
+package com.udinus.aplikasimobile.repository.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.udinus.aplikasimobile.database.model.Mahasiswa;
+import com.udinus.aplikasimobile.repository.model.Mahasiswa;
 
 import java.util.ArrayList;
 

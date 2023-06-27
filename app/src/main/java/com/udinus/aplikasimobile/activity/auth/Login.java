@@ -7,16 +7,16 @@ import android.text.TextUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.udinus.aplikasimobile.activity.khs.ListKhs;
-import com.udinus.aplikasimobile.database.DatabaseHelper;
-import com.udinus.aplikasimobile.database.dao.MahasiswaDao;
-import com.udinus.aplikasimobile.database.dao.UserDao;
-import com.udinus.aplikasimobile.database.model.Mahasiswa;
-import com.udinus.aplikasimobile.database.model.User;
-import com.udinus.aplikasimobile.databinding.ActivityLoginBinding;
+import com.udinus.aplikasimobile.activity.khs.KhsList;
+import com.udinus.aplikasimobile.databinding.ActivityAuthLoginBinding;
+import com.udinus.aplikasimobile.repository.DatabaseHelper;
+import com.udinus.aplikasimobile.repository.dao.MahasiswaDao;
+import com.udinus.aplikasimobile.repository.dao.UserDao;
+import com.udinus.aplikasimobile.repository.model.Mahasiswa;
+import com.udinus.aplikasimobile.repository.model.User;
 
 public class Login extends AppCompatActivity {
-    private ActivityLoginBinding binding;
+    private ActivityAuthLoginBinding binding;
     DatabaseHelper databaseHelper;
     SQLiteDatabase database;
     private UserDao userDao;
@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Mengganti setContentView dengan binding
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityAuthLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Inisialisasi database dan DAO
@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity {
             String password = binding.logPassword.getText().toString();
             if (user.getPassword().equals(password)) {
                 // Jika sama maka akan berpindah ke activity ListKhs
-                Intent intent = new Intent(Login.this, ListKhs.class);
+                Intent intent = new Intent(Login.this, KhsList.class);
                 // Dan sekaligus mendapatkan data mahasiswa pada tabel mhs
                 Mahasiswa mahasiswa = mahasiswaDao.findMahasiswaByNim(user.getNim());
                 // Serta memasukannya ke object user

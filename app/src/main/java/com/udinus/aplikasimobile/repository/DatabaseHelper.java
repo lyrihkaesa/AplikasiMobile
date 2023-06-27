@@ -1,4 +1,4 @@
-package com.udinus.aplikasimobile.database;
+package com.udinus.aplikasimobile.repository;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,10 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.udinus.aplikasimobile.database.dao.BarangDao;
-import com.udinus.aplikasimobile.database.dao.KhsDao;
-import com.udinus.aplikasimobile.database.dao.MahasiswaDao;
-import com.udinus.aplikasimobile.database.dao.UserDao;
+import com.udinus.aplikasimobile.repository.dao.BarangDao;
+import com.udinus.aplikasimobile.repository.dao.KhsDao;
+import com.udinus.aplikasimobile.repository.dao.MahasiswaDao;
+import com.udinus.aplikasimobile.repository.dao.UserDao;
 
 /**
  * DatabaseHelper adalah class yang mengatur create/pembuatan, upgrade/peningkatan, dan drop/penghapusan database SQLite.

@@ -10,35 +10,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.udinus.aplikasimobile.R;
-import com.udinus.aplikasimobile.database.model.Medicine;
-import com.udinus.aplikasimobile.databinding.ActivityEntryMedicineBinding;
+import com.udinus.aplikasimobile.databinding.ActivityMedicineEditBinding;
+import com.udinus.aplikasimobile.repository.model.Medicine;
 import com.udinus.aplikasimobile.utils.AppUtils;
 
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
-public class EntryMedicine extends AppCompatActivity {
+public class MedicineEdit extends AppCompatActivity {
+    ActivityMedicineEditBinding binding;
     private DatabaseReference databaseRef;
-    ActivityEntryMedicineBinding binding;
+    private Medicine medicine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityEntryMedicineBinding.inflate(getLayoutInflater());
+        binding = ActivityMedicineEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Mengubah judul yang ada pada App Bar
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Menambahkan Data Medicine");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Mengubah Data Medicine");
 
-        // Inisialisasi DatabaseReference
+        // Mengambil data dari intent dengan ParcelableExtra
+        medicine = getIntent().getParcelableExtra("key_medicine");
+
         databaseRef = FirebaseDatabase.getInstance().getReference("medicine");
-
-        UUID uuid = UUID.randomUUID();
-        String randomUUID8Char = uuid.toString().replaceAll("-", "").substring(0, 8);
-        binding.edtCodeMedicine.setText(randomUUID8Char);
 
         final Calendar c = Calendar.getInstance();
 
@@ -46,19 +44,25 @@ public class EntryMedicine extends AppCompatActivity {
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        binding.tvDateExp.setText(String.format(getResources().getString(R.string.format_date), day, month + 1, year));
+        binding.edtCodeMedicine.setText(medicine.getCode());
+        binding.edtNameMedicine.setText(medicine.getName());
+        binding.edtSatuanMedicine.setText(medicine.getSatuan());
+        binding.edtPriceMedicine.setText(AppUtils.convertPriceToText(medicine.getPrice()));
+        binding.edtAmountMedicine.setText(String.valueOf(medicine.getAmount()));
+        binding.tvDateExp.setText(String.valueOf(AppUtils.simpleDateFormat.format(medicine.getExpired())));
+        binding.edtPackagingMedicine.setText(medicine.getPackaging());
+        binding.edtTypeMedicine.setText(medicine.getType());
 
         binding.imgbtnDate.setOnClickListener(view ->
-                new DatePickerDialog(EntryMedicine.this, (view1, year1, monthOfYear, dayOfMonth)
-                         -> binding.tvDateExp.setText(String.format(getResources().getString(R.string.format_date), dayOfMonth, monthOfYear + 1, year1)),
+                new DatePickerDialog(MedicineEdit.this, (view1, year1, monthOfYear, dayOfMonth)
+                        -> binding.tvDateExp.setText(String.format(getResources().getString(R.string.format_date), dayOfMonth, monthOfYear + 1, year1)),
                         year, month, day).show());
-
-        binding.btnSimpan.setOnClickListener(view -> insertMedicine());
-
+        binding.btnSimpan.setOnClickListener(view -> editMedicine());
         binding.btnBatal.setOnClickListener(view -> finish());
+        binding.btnHapus.setOnClickListener(view -> showDeleteConfirmationDialog());
     }
 
-    private void insertMedicine() {
+    private void editMedicine() {
         if (TextUtils.isEmpty(binding.edtCodeMedicine.getText())) {
             binding.tilCodeMedicine.setError("Isi kode medicine");
             binding.edtCodeMedicine.requestFocus();
@@ -116,9 +120,6 @@ public class EntryMedicine extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        // Membuat obyek medicine/Medicine
-        Medicine medicine = new Medicine();
         medicine.setCode(code);
         medicine.setName(name);
         medicine.setSatuan(satuan);
@@ -128,33 +129,26 @@ public class EntryMedicine extends AppCompatActivity {
         medicine.setPackaging(packaging);
         medicine.setType(type);
 
-        // Mengambil referensi baru untuk medicine di Firebase Realtime Database
-        DatabaseReference newMedicineRef = databaseRef.push();
-        String medicineKey = newMedicineRef.getKey();
-
-        if (medicineKey != null) {
-            // Menyimpan obyek medicine ke Firebase Realtime Database
-            newMedicineRef.setValue(medicine)
-                    .addOnSuccessListener(aVoid -> {
-                        // Menampilkan pesan berhasil dan kembali ke activity sebelumnya
-                        finish();
-                    })
-                    .addOnFailureListener(e -> {
-                        // Menampilkan pesan kesalahan jika gagal menyimpan ke database
-                        showError("Gagal menyimpan medicine: " + e.getMessage());
-                    });
-        } else {
-            // Menampilkan pesan kesalahan jika gagal mendapatkan kunci medicine
-            showError("Gagal mendapatkan kunci medicine");
-        }
+        databaseRef.child(medicine.getKey()).setValue(medicine);
+        finish();
     }
 
-    private void showError(String errorMessage) {
-        // Menampilkan AlertDialog untuk menampilkan pesan kesalahan
+    private void deleteMedicine() {
+        databaseRef.child(medicine.getKey()).removeValue();
+        finish();
+    }
+
+    private void showDeleteConfirmationDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("Error")
-                .setMessage(errorMessage)
-                .setPositiveButton("OK", null)
+                .setTitle("Hapus")
+                .setMessage("Apakah Anda ingin menghapus " + medicine.getName() + "?")
+                .setIcon(R.drawable.round_delete_24)
+                .setPositiveButton("Hapus", (dialog, whichButton) -> {
+                    deleteMedicine();
+                    dialog.dismiss();
+                })
+                .setNegativeButton("Batal", (dialog, which) -> dialog.dismiss())
+                .create()
                 .show();
     }
 }
