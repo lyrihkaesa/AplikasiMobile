@@ -140,6 +140,8 @@
     <string name="label_pick_date">pick date</string>
 
     <string name="format_date">%d-%02d-%d</string>
+    <string name="entry_teacher">Tambah Guru</string>
+    <string name="position">Jabatan</string>
     <string-array name="data_name">
         <item>Sumagesic 4 Tablet</item>
         <item>Decolgen 4 Tablet</item>
