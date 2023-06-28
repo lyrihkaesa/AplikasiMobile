@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -51,9 +52,15 @@ public class TeacherList extends AppCompatActivity {
 
         });
         binding.fab.setOnClickListener(view -> {
-
+            Intent intent = new Intent(TeacherList.this, TeacherEntry.class);
+            startActivity(intent);
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        progressDialog.show();
         TeacherService teacherService = ApiClient.getClient().create(TeacherService.class);
         Call<ApiResponse<List<Teacher>>> call = teacherService.getTeacher();
         call.enqueue(new Callback<ApiResponse<List<Teacher>>>() {
@@ -77,7 +84,5 @@ public class TeacherList extends AppCompatActivity {
                 Toast.makeText(TeacherList.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        progressDialog.show();
     }
 }

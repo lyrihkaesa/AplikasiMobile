@@ -42,6 +42,8 @@ public class Teacher implements Parcelable {
         return employeeCode;
     }
 
+    public Teacher(){}
+
     protected Teacher(Parcel in) {
         this.employeeCode = in.readString();
         this.employeeName = in.readString();

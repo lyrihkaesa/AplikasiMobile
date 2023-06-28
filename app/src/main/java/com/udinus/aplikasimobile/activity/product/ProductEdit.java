@@ -37,8 +37,8 @@ public class ProductEdit extends AppCompatActivity {
         binding.edtSatuan.setText(barang.getSatuan());
         binding.edtHarga.setText(String.valueOf(barang.getPrice()));
 
-        binding.btnSimpan.setOnClickListener(view -> editBarang());
-        binding.btnBatal.setOnClickListener(view -> finish());
+        binding.btnSave.setOnClickListener(view -> editBarang());
+        binding.btnCancel.setOnClickListener(view -> finish());
         binding.btnHapus.setOnClickListener(view -> showDeleteConfirmationDialog());
     }
 

@@ -57,8 +57,8 @@ public class MedicineEdit extends AppCompatActivity {
                 new DatePickerDialog(MedicineEdit.this, (view1, year1, monthOfYear, dayOfMonth)
                         -> binding.tvDateExp.setText(String.format(getResources().getString(R.string.format_date), dayOfMonth, monthOfYear + 1, year1)),
                         year, month, day).show());
-        binding.btnSimpan.setOnClickListener(view -> editMedicine());
-        binding.btnBatal.setOnClickListener(view -> finish());
+        binding.btnSave.setOnClickListener(view -> editMedicine());
+        binding.btnCancel.setOnClickListener(view -> finish());
         binding.btnHapus.setOnClickListener(view -> showDeleteConfirmationDialog());
     }
 

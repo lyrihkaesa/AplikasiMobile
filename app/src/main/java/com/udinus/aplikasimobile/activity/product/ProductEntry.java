@@ -33,9 +33,9 @@ public class ProductEntry extends AppCompatActivity {
         String randomUUID8Char = uuid.toString().replaceAll("-", "").substring(0, 8);
         binding.edtKode.setText(randomUUID8Char);
 
-        binding.btnSimpan.setOnClickListener(view -> insertBarang());
+        binding.btnSave.setOnClickListener(view -> insertBarang());
 
-        binding.btnBatal.setOnClickListener(view -> finish());
+        binding.btnCancel.setOnClickListener(view -> finish());
     }
 
     private void insertBarang() {

@@ -52,9 +52,9 @@ public class MedicineEntry extends AppCompatActivity {
                          -> binding.tvDateExp.setText(String.format(getResources().getString(R.string.format_date), dayOfMonth, monthOfYear + 1, year1)),
                         year, month, day).show());
 
-        binding.btnSimpan.setOnClickListener(view -> insertMedicine());
+        binding.btnSave.setOnClickListener(view -> insertMedicine());
 
-        binding.btnBatal.setOnClickListener(view -> finish());
+        binding.btnCancel.setOnClickListener(view -> finish());
     }
 
     private void insertMedicine() {
