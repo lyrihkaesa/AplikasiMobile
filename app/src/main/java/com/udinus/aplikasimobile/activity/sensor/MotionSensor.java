@@ -8,7 +8,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import com.udinus.aplikasimobile.R;
 
 public class MotionSensor extends AppCompatActivity {
-    private  Accelerometer accelerometer;
+    private Accelerometer accelerometer;
     private Gyroscope gyroscope;
 
     @Override
@@ -20,17 +20,17 @@ public class MotionSensor extends AppCompatActivity {
         gyroscope = new Gyroscope(this);
 
         accelerometer.setListener((tx, ty, tz) -> {
-            if(tx > 1.0f){
+            if (tx > 1.0f) {
                 getWindow().getDecorView().setBackground(AppCompatResources.getDrawable(this, R.color.red));
-            } else  if (tx < -1.0f){
+            } else if (tx < -1.0f) {
                 getWindow().getDecorView().setBackground(AppCompatResources.getDrawable(this, R.color.blue));
             }
         });
 
         gyroscope.setListener((rx, ry, rz) -> {
-            if(rz > 1.0f){
+            if (rz > 1.0f) {
                 getWindow().getDecorView().setBackground(AppCompatResources.getDrawable(this, R.color.green));
-            } else if(rz < -1.0f){
+            } else if (rz < -1.0f) {
                 getWindow().getDecorView().setBackground(AppCompatResources.getDrawable(this, R.color.yellow));
             }
         });

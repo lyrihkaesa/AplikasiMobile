@@ -49,7 +49,9 @@ public class TeacherList extends AppCompatActivity {
         binding.rvTeacher.setAdapter(teacherRvAdapter);
 
         teacherRvAdapter.setOnItemClickCallback(teacher -> {
-
+            Intent intent = new Intent(TeacherList.this, TeacherEdit.class);
+            intent.putExtra("key_teacher", teacher);
+            startActivity(intent);
         });
         binding.fab.setOnClickListener(view -> {
             Intent intent = new Intent(TeacherList.this, TeacherEntry.class);
@@ -66,12 +68,14 @@ public class TeacherList extends AppCompatActivity {
         call.enqueue(new Callback<ApiResponse<List<Teacher>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Teacher>>> call, Response<ApiResponse<List<Teacher>>> response) {
-                progressDialog.dismiss();
+
                 if(response.isSuccessful()){
                     ApiResponse<List<Teacher>> apiResponse = response.body();
                     if(apiResponse != null){
+                        teacherArrayList.clear();
                         teacherArrayList.addAll(apiResponse.getData());
-                        teacherRvAdapter.notifyItemInserted(teacherArrayList.size());
+                        teacherRvAdapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
                     }
                 } else {
                     Toast.makeText(TeacherList.this, "Failed to fetch teachers", Toast.LENGTH_SHORT).show();
