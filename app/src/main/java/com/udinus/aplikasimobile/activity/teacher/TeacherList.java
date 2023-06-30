@@ -1,13 +1,20 @@
 package com.udinus.aplikasimobile.activity.teacher;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.udinus.aplikasimobile.adapter.TeacherRvAdapter;
 import com.udinus.aplikasimobile.databinding.ActivityTeacherListBinding;
 import com.udinus.aplikasimobile.repository.ApiClient;
@@ -24,9 +31,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TeacherList extends AppCompatActivity {
+    private DatabaseReference databaseRef;
     private ProgressDialog progressDialog;
     private TeacherRvAdapter teacherRvAdapter;
-
     private ArrayList<Teacher> teacherArrayList = new ArrayList<>();
 
     @Override
@@ -41,6 +48,8 @@ public class TeacherList extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
+
+        databaseRef = FirebaseDatabase.getInstance().getReference("teacher");
 
         binding.rvTeacher.setHasFixedSize(true);
         binding.rvTeacher.setLayoutManager(new LinearLayoutManager(this));
@@ -63,15 +72,19 @@ public class TeacherList extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         progressDialog.show();
+        getFirebaseTeachers();
+    }
+
+    public void getApiTeachers() {
+        progressDialog.show();
         TeacherService teacherService = ApiClient.getClient().create(TeacherService.class);
         Call<ApiResponse<List<Teacher>>> call = teacherService.getTeacher();
         call.enqueue(new Callback<ApiResponse<List<Teacher>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Teacher>>> call, Response<ApiResponse<List<Teacher>>> response) {
-
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ApiResponse<List<Teacher>> apiResponse = response.body();
-                    if(apiResponse != null){
+                    if (apiResponse != null) {
                         teacherArrayList.clear();
                         teacherArrayList.addAll(apiResponse.getData());
                         teacherRvAdapter.notifyDataSetChanged();
@@ -81,11 +94,44 @@ public class TeacherList extends AppCompatActivity {
                     Toast.makeText(TeacherList.this, "Failed to fetch teachers", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<ApiResponse<List<Teacher>>> call, Throwable t) {
                 progressDialog.dismiss();
                 Toast.makeText(TeacherList.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getFirebaseTeachers(){
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                teacherArrayList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Teacher teacher = snapshot.getValue(Teacher.class);
+                    if (teacher != null) {
+                        teacher.setKey(snapshot.getKey());
+                        teacherArrayList.add(teacher);
+                    }
+                }
+                // Memberitahu adapter bahwa data telah berubah
+                teacherRvAdapter.notifyDataSetChanged();
+                // Menyembunyikan ProgressDialog setelah operasi selesai
+                progressDialog.dismiss();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(TeacherList.this);
+//                builder.setTitle("Show API").setMessage("Mengubah daftar list ke api").setPositiveButton("Ubah", (dialog, which) -> {
+//                    getApiTeachers();
+//                }).setNegativeButton("Batal", (dialog, which) -> {
+//
+//                }).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TeacherList.this);
+                builder.setTitle("Error").setMessage("Error: " + databaseError.getMessage()).setPositiveButton("Refresh", (dialog, which) -> {
+                    recreate();
+                }).show();
             }
         });
     }

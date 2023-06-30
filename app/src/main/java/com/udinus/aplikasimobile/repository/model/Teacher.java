@@ -8,7 +8,8 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
 public class Teacher implements Parcelable {
-
+    @SerializedName("firebase_key")
+    private String key;
     @SerializedName("employee_name")
     private String employeeName;
 
@@ -17,6 +18,14 @@ public class Teacher implements Parcelable {
 
     @SerializedName("employee_code")
     private String employeeCode;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
@@ -42,9 +51,11 @@ public class Teacher implements Parcelable {
         return employeeCode;
     }
 
-    public Teacher(){}
+    public Teacher() {
+    }
 
     protected Teacher(Parcel in) {
+        this.key = in.readString();
         this.employeeCode = in.readString();
         this.employeeName = in.readString();
         this.position = in.readString();
@@ -69,6 +80,7 @@ public class Teacher implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(this.key);
         parcel.writeString(this.employeeCode);
         parcel.writeString(this.employeeName);
         parcel.writeString(this.position);
