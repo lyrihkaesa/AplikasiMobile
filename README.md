@@ -18,6 +18,10 @@ or
 git fetch
 ```
 
+## Development
+
+Silahkan pull-request di branch `dev` untuk saling berkolaborasi.
+
 ## Membuat Branch Baru
 
 Untuk membuat branch baru pada Git dan masuk ke branch tersebut, Anda dapat mengikuti langkah-langkah berikut:
