@@ -42,9 +42,7 @@ public class MedicineRvAdapter extends RecyclerView.Adapter<MedicineRvAdapter.Me
         // yang ada dalam holder item_row_medicine.xml
         holder.binding.tvItemCode.setText(medicine.getCode());
         holder.binding.tvItemName.setText(medicine.getName());
-        holder.binding.tvItemSatuan.setText(medicine.getSatuan());
         holder.binding.tvItemPrice.setText(AppUtils.convertPriceToRpText(medicine.getPrice()));
-        holder.binding.tvItemExpired.setText(AppUtils.simpleDateFormat.format(medicine.getExpired()));
 
         holder.itemView.setOnClickListener(view -> onItemClickCallback.onItemClicked(medicine));
 

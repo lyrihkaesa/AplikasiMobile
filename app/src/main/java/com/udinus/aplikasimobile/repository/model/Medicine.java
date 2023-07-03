@@ -5,20 +5,19 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Medicine implements Parcelable {
+    @SerializedName("firebase_key")
     private String key;
+    @SerializedName("code")
     private String code;
+    @SerializedName("name")
     private String name;
-    private String satuan;
+    @SerializedName("price")
     private Double price;
-    private int amount;
-    private long expired;
-    private String packaging;
-    private String type;
 
-    public Medicine() {
-
-    }
+    public Medicine() {}
 
     public String getKey() {
         return key;
@@ -44,14 +43,6 @@ public class Medicine implements Parcelable {
         this.name = name;
     }
 
-    public String getSatuan() {
-        return satuan;
-    }
-
-    public void setSatuan(String satuan) {
-        this.satuan = satuan;
-    }
-
     public Double getPrice() {
         return price;
     }
@@ -60,48 +51,11 @@ public class Medicine implements Parcelable {
         this.price = price;
     }
 
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
-    public Long getExpired() {
-        return expired;
-    }
-
-    public void setExpired(Long expired) {
-        this.expired = expired;
-    }
-
-    public String getPackaging() {
-        return packaging;
-    }
-
-    public void setPackaging(String packaging) {
-        this.packaging = packaging;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     protected Medicine(Parcel in) {
         this.code = in.readString();
         this.name = in.readString();
-        this.satuan = in.readString();
         this.price = in.readDouble();
         this.key = in.readString();
-        this.type = in.readString();
-        this.packaging = in.readString();
-        this.amount = in.readInt();
-        this.expired = in.readLong();
     }
 
     public static final Creator<Medicine> CREATOR = new Creator<Medicine>() {
@@ -125,12 +79,7 @@ public class Medicine implements Parcelable {
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeString(this.code);
         parcel.writeString(this.name);
-        parcel.writeString(this.satuan);
         parcel.writeDouble(this.price);
         parcel.writeString(this.key);
-        parcel.writeString(this.type);
-        parcel.writeString(this.packaging);
-        parcel.writeInt(this.amount);
-        parcel.writeLong(this.expired);
     }
 }

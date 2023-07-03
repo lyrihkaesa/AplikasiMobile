@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,16 +17,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udinus.aplikasimobile.adapter.MedicineRvAdapter;
 import com.udinus.aplikasimobile.databinding.ActivityMedicineListBinding;
+import com.udinus.aplikasimobile.repository.ApiClient;
 import com.udinus.aplikasimobile.repository.model.Medicine;
+import com.udinus.aplikasimobile.repository.service.ApiResponse;
+import com.udinus.aplikasimobile.repository.service.MedicineService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MedicineList extends AppCompatActivity {
     private DatabaseReference databaseRef;
-    private final ArrayList<Medicine> medicineArrayList = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private  MedicineRvAdapter medicineRecyclerViewAdapter;
+    private  MedicineRvAdapter medicineRvAdapter;
+    private final ArrayList<Medicine> medicineArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +56,16 @@ public class MedicineList extends AppCompatActivity {
         // Mengatur LayoutManager pada RecycleView Medicine dengan LinearLayoutManager
         binding.rvMedicine.setLayoutManager(new LinearLayoutManager(this));
         // Deklarasi Adapter RecyclerView Medicine
-        medicineRecyclerViewAdapter = new MedicineRvAdapter(medicineArrayList);
+        medicineRvAdapter = new MedicineRvAdapter(medicineArrayList);
 
-        medicineRecyclerViewAdapter.setOnItemClickCallback(medicine -> {
+        medicineRvAdapter.setOnItemClickCallback(medicine -> {
             Intent intentDetail = new Intent(MedicineList.this, MedicineEdit.class);
             // Mengirimkan data khs ke activity DetailKhs dengan key "key_khs"
             intentDetail.putExtra("key_medicine", medicine);
             startActivity(intentDetail);
         });
         // Menghubungkan RecyclerView dengan Adapter diatas.
-        binding.rvMedicine.setAdapter(medicineRecyclerViewAdapter);
+        binding.rvMedicine.setAdapter(medicineRvAdapter);
 
         // Tombol/Button yang melayang untuk navigasi ke EntryPage/Halaman Input Medicine
         binding.fab.setOnClickListener(view -> {
@@ -70,6 +79,35 @@ public class MedicineList extends AppCompatActivity {
         // Menampilkan ProgressDialog saat operasi sedang berjalan
         progressDialog.show();
         // Mengambil daftar medicine dari Firebase Realtime Database
+        getFirebaseMedicines();
+    }
+    public void getApiMedicines() {
+        progressDialog.show();
+        MedicineService medicineService = ApiClient.getClient().create(MedicineService.class);
+        Call<ApiResponse<List<Medicine>>> call = medicineService.getMedicine();
+        call.enqueue(new Callback<ApiResponse<List<Medicine>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<List<Medicine>>> call, Response<ApiResponse<List<Medicine>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<List<Medicine>> apiResponse = response.body();
+                    if (apiResponse != null) {
+                        medicineArrayList.clear();
+                        medicineArrayList.addAll(apiResponse.getData());
+                        medicineRvAdapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                    }
+                } else {
+                    Toast.makeText(MedicineList.this, "Failed to fetch medicines", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiResponse<List<Medicine>>> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(MedicineList.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void getFirebaseMedicines(){
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -82,7 +120,7 @@ public class MedicineList extends AppCompatActivity {
                     }
                 }
                 // Memberitahu adapter bahwa data telah berubah
-                medicineRecyclerViewAdapter.notifyDataSetChanged();
+                medicineRvAdapter.notifyDataSetChanged();
 
                 // Menyembunyikan ProgressDialog setelah operasi selesai
                 progressDialog.dismiss();

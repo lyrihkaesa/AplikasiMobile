@@ -54,32 +54,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:text="@string/label_code" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="4dp"
-                android:text="@string/titik_tengah" />
-
-            <TextView
-                android:id="@+id/tv_item_satuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:text="@string/label_satuan" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="4dp"
-                android:text="@string/titik_tengah" />
-
-            <TextView
-                android:id="@+id/tv_item_expired"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:text="@string/label_expired_date" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

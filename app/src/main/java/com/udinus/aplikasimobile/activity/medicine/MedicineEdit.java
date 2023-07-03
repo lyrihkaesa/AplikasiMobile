@@ -1,9 +1,10 @@
 package com.udinus.aplikasimobile.activity.medicine;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,13 +12,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.udinus.aplikasimobile.R;
 import com.udinus.aplikasimobile.databinding.ActivityMedicineEditBinding;
+import com.udinus.aplikasimobile.repository.ApiClient;
 import com.udinus.aplikasimobile.repository.model.Medicine;
+import com.udinus.aplikasimobile.repository.service.ApiResponse;
+import com.udinus.aplikasimobile.repository.service.MedicineService;
 import com.udinus.aplikasimobile.utils.AppUtils;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MedicineEdit extends AppCompatActivity {
     ActivityMedicineEditBinding binding;
@@ -30,33 +35,17 @@ public class MedicineEdit extends AppCompatActivity {
         binding = ActivityMedicineEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Mengubah judul yang ada pada App Bar
         Objects.requireNonNull(getSupportActionBar()).setTitle("Mengubah Data Medicine");
 
-        // Mengambil data dari intent dengan ParcelableExtra
         medicine = getIntent().getParcelableExtra("key_medicine");
 
         databaseRef = FirebaseDatabase.getInstance().getReference("medicine");
 
-        final Calendar c = Calendar.getInstance();
-
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
         binding.edtCodeMedicine.setText(medicine.getCode());
-        binding.edtNameMedicine.setText(medicine.getName());
-        binding.edtSatuanMedicine.setText(medicine.getSatuan());
-        binding.edtPriceMedicine.setText(AppUtils.convertPriceToText(medicine.getPrice()));
-        binding.edtAmountMedicine.setText(String.valueOf(medicine.getAmount()));
-        binding.tvDateExp.setText(String.valueOf(AppUtils.simpleDateFormat.format(medicine.getExpired())));
-        binding.edtPackagingMedicine.setText(medicine.getPackaging());
-        binding.edtTypeMedicine.setText(medicine.getType());
+        binding.edtCodeMedicine.setEnabled(false);
 
-        binding.imgbtnDate.setOnClickListener(view ->
-                new DatePickerDialog(MedicineEdit.this, (view1, year1, monthOfYear, dayOfMonth)
-                        -> binding.tvDateExp.setText(String.format(getResources().getString(R.string.format_date), dayOfMonth, monthOfYear + 1, year1)),
-                        year, month, day).show());
+        binding.edtNameMedicine.setText(medicine.getName());
+        binding.edtPriceMedicine.setText(AppUtils.convertPriceToText(medicine.getPrice()));
         binding.btnSave.setOnClickListener(view -> editMedicine());
         binding.btnCancel.setOnClickListener(view -> finish());
         binding.btnHapus.setOnClickListener(view -> showDeleteConfirmationDialog());
@@ -73,69 +62,83 @@ public class MedicineEdit extends AppCompatActivity {
             binding.edtNameMedicine.requestFocus();
             return;
         }
-        if (TextUtils.isEmpty(binding.edtSatuanMedicine.getText())) {
-            binding.tilSatuanMedicine.setError("Isi satuan medicine");
-            binding.edtSatuanMedicine.requestFocus();
-            return;
-        }
         if (TextUtils.isEmpty(binding.edtPriceMedicine.getText())) {
             binding.tilPriceMedicine.setError("Isi harga medicine");
             binding.edtPriceMedicine.requestFocus();
             return;
         }
 
-        if (TextUtils.isEmpty(binding.edtAmountMedicine.getText())) {
-            binding.tilAmountMedicine.setError("Isi jumlah medicine");
-            binding.edtAmountMedicine.requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(binding.edtPackagingMedicine.getText())) {
-            binding.tilPackagingMedicine.setError("Isi kemasan medicine");
-            binding.edtPackagingMedicine.requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(binding.edtTypeMedicine.getText())) {
-            binding.tilTypeMedicine.setError("Isi tipe medicine");
-            binding.edtTypeMedicine.requestFocus();
-            return;
-        }
-
         String code = binding.edtCodeMedicine.getText().toString().trim();
         String name = binding.edtNameMedicine.getText().toString().trim();
-        String satuan = binding.edtSatuanMedicine.getText().toString().trim();
         String priceText = binding.edtPriceMedicine.getText().toString().trim();
-        String amountText = binding.edtAmountMedicine.getText().toString().trim();
-        String packaging = binding.edtPackagingMedicine.getText().toString().trim();
-        String type = binding.edtTypeMedicine.getText().toString().trim();
 
         double price = Double.parseDouble(priceText);
-        int amount = Integer.parseInt(amountText);
-        long epochDateExperied = 0L;
-
-        try {
-            Date date = AppUtils.simpleDateFormat.parse(binding.tvDateExp.getText().toString());
-            assert date != null;
-            epochDateExperied = date.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
         medicine.setCode(code);
         medicine.setName(name);
-        medicine.setSatuan(satuan);
         medicine.setPrice(price);
-        medicine.setAmount(amount);
-        medicine.setExpired(epochDateExperied);
-        medicine.setPackaging(packaging);
-        medicine.setType(type);
 
-        databaseRef.child(medicine.getKey()).setValue(medicine);
+        if (!TextUtils.isEmpty(medicine.getKey())) {
+            databaseRef.child(medicine.getKey()).setValue(medicine);
+        }
+        putApiMedicine(medicine, this);
         finish();
     }
 
     private void deleteMedicine() {
-        databaseRef.child(medicine.getKey()).removeValue();
+        if (!TextUtils.isEmpty(medicine.getKey())) {
+            databaseRef.child(medicine.getKey()).removeValue();
+        }
+        deleteApiMedicine();
         finish();
+    }
+
+    private void putApiMedicine(Medicine medicine, Context context) {
+        MedicineService medicineService = ApiClient.getClient().create(MedicineService.class);
+        Call<ApiResponse<Medicine>> call = medicineService.putMedicine(medicine.getCode(), medicine);
+
+        call.enqueue(new Callback<ApiResponse<Medicine>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Medicine>> call, Response<ApiResponse<Medicine>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<Medicine> medicineResponse = response.body();
+                    if (medicineResponse != null) {
+                        Medicine updateMedicine = medicineResponse.getData();
+                        Toast.makeText(context, "Success: " + updateMedicine, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                } else {
+                    Toast.makeText(context, "Failed to update medicine", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Medicine>> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(context, "Terjadi kesalahan koneksi", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void deleteApiMedicine() {
+        MedicineService medicineService = ApiClient.getClient().create(MedicineService.class);
+        Call<ApiResponse<Void>> call = medicineService.deleteMedicine(medicine.getCode());
+        call.enqueue(new Callback<ApiResponse<Void>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Void>> call, Response<ApiResponse<Void>> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MedicineEdit.this, "Data guru berhasil dihapus", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(MedicineEdit.this, "Error delete medicine", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Void>> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(MedicineEdit.this, "Terjadi kesalahan koneksi", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void showDeleteConfirmationDialog() {
