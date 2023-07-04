@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MID06495</string>
+    <string name="app_name">Simple Guru Retrofit</string>
 
     <string name="text_nim">A12.2020.06495</string>
     <string name="text_full_name">Kukuh Setya Arumansyah</string>
@@ -119,7 +119,7 @@
     <string name="share">Bagikan</string>
     <string name="label_code">Kode</string>
     <string name="hint_kode">Isi dengan kode barang!</string>
-    <string name="label_name">Nama</string>
+    <string name="label_nama">Nama</string>
     <string name="hint_nama">Isi dengan nama barang!</string>
     <string name="label_satuan">Satuan</string>
     <string name="hint_satuan">Isi dengan Satuan barang!</string>
@@ -142,6 +142,9 @@
     <string name="format_date">%d-%02d-%d</string>
     <string name="entry_teacher">Tambah Guru</string>
     <string name="label_position">Jabatan</string>
+    <string name="label_nip">NIP</string>
+    <string name="label_status">Status</string>
+    <string name="label_gaji">Gaji</string>
     <string-array name="data_name">
         <item>Sumagesic 4 Tablet</item>
         <item>Decolgen 4 Tablet</item>
