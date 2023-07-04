@@ -1,6 +1,5 @@
 package com.udinus.aplikasimobile.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -74,7 +73,7 @@ public class EntryGuru extends AppCompatActivity {
 
     private void postApiGuru(Guru guru, Context context){
         InterfaceGuru interfaceGuru = ApiClient.getClient().create(InterfaceGuru.class);
-        Call<ApiResponse<Guru>> call = interfaceGuru.postTeacher(guru);
+        Call<ApiResponse<Guru>> call = interfaceGuru.postGuru(guru);
         call.enqueue(new Callback<ApiResponse<Guru>>() {
             @Override
             public void onResponse(Call<ApiResponse<Guru>> call, Response<ApiResponse<Guru>> response) {

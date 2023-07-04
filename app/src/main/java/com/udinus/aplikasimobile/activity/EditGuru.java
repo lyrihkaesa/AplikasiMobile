@@ -85,7 +85,7 @@ public class EditGuru extends AppCompatActivity {
 
     private void putApiGuru(Guru guru, Context context){
         InterfaceGuru interfaceGuru = ApiClient.getClient().create(InterfaceGuru.class);
-        Call<ApiResponse<Guru>> call = interfaceGuru.putTeacher(guru.getNip(), guru);
+        Call<ApiResponse<Guru>> call = interfaceGuru.putGuru(guru.getNip(), guru);
 
         call.enqueue(new Callback<ApiResponse<Guru>>() {
             @Override
@@ -112,7 +112,7 @@ public class EditGuru extends AppCompatActivity {
 
     private void deleteGuru() {
         InterfaceGuru interfaceGuru = ApiClient.getClient().create(InterfaceGuru.class);
-        Call<ApiResponse<Void>> call = interfaceGuru.deleteTeacher(guru.getNip());
+        Call<ApiResponse<Void>> call = interfaceGuru.deleteGuru(guru.getNip());
 
         call.enqueue(new Callback<ApiResponse<Void>>() {
             @Override

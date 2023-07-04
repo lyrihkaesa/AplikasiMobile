@@ -61,13 +61,13 @@ public class DaftarGuru extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         progressDialog.show();
-        getApiTeachers();
+        getApiGuru();
     }
 
-    public void getApiTeachers() {
+    public void getApiGuru() {
         progressDialog.show();
         InterfaceGuru interfaceGuru = ApiClient.getClient().create(InterfaceGuru.class);
-        Call<ApiResponse<List<Guru>>> call = interfaceGuru.getTeacher();
+        Call<ApiResponse<List<Guru>>> call = interfaceGuru.getGurus();
         call.enqueue(new Callback<ApiResponse<List<Guru>>>() {
             @Override
             public void onResponse(Call<ApiResponse<List<Guru>>> call, Response<ApiResponse<List<Guru>>> response) {
