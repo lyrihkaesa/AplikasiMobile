@@ -21,4 +21,19 @@ public class AppUtils {
         }
         return priceText;
     }
+
+    public static String convertGajiToRpText(int gaji) {
+        // Mengubah format price tipe data double "1000" ke string currency indonesia "Rp1.000"
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        format.setMaximumFractionDigits(0);
+        return format.format(gaji);
+    }
+
+    public static String convertGajiToText(int gaji) {
+        String priceText = String.valueOf(gaji);
+        if (priceText.endsWith(".0")) {
+            priceText = priceText.substring(0, priceText.length() - 2);
+        }
+        return priceText;
+    }
 }
